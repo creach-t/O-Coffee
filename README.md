@@ -7,3 +7,10 @@
 ## Remarques pédagogiques et rendus
 
 [Recommandations](./docs/recommandations/)
+
+### Technologies utilisées
+
+- EXPRESS
+- EJS
+- DOTENV
+  

@@ -73,7 +73,7 @@ h2{
 .nav__list{
    display: flex;
    flex-wrap: nowrap;
-   gap: 1.5rem;
+   gap: 1.1rem;
    margin-top: 0.5rem;
 }
 
@@ -81,12 +81,13 @@ h2{
     color: var(--white-text-color);
     text-decoration: none;
     padding-bottom: 0.3rem;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
 }
 
 .nav__list__item__link:hover{
     color: var(--white-text-color);
-    border-bottom: 1px solid #faecde;
+    border-bottom: 2px solid #faecde;
     transform: 300ms ease-in-out;
 }
 
@@ -249,6 +250,8 @@ h2{
     margin: 0.7rem 0
 }
 
+/* Catalogue */
+
 .catalogue__img{
     background-image: url('../image/about.jpg');
     width: 100%;
@@ -266,6 +269,45 @@ h2{
     text-shadow: 1px 1px 10px #000;
     line-height: 250px;
 }
+
+.catalogue__select{
+    margin: auto;
+}
+
+.image404{
+    margin: auto;
+    width: 90vw;
+    height: 77vh;
+    color:#faecde;
+    text-shadow: 2px 2px 20px black;
+    text-align: center;
+    background-image: url('../image/404.png');
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    > h2{
+        font-size: 3rem;
+        background-color: #0000007c;
+    }
+    
+    > h3{
+        font-size: 2rem;
+        background-color: #0000007c;
+    }
+    
+    > p{
+        font-size: 1.6rem;
+        background-color: #0000007c;
+    }
+
+}
+
+
+
+
+
 
 
 
