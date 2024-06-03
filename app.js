@@ -11,23 +11,11 @@ app.set('views', 'app/views');
 
 app.use(express.static('public'));
 
-app.use(
-  session({
-    // Secret permet de chiffre l'id du cookie de session
-    secret: process.env.SECRET_KEY,
-    resave: false,
-    saveUninitialized: true,
-  })
-);
-
-app.use((req, res, next) => {
-  if (!req.session.deck) {
-    req.session.deck = [];
-  }
-  next(); 
-});
-
 app.use(router);
+
+app.use(function(req, res, next) {
+  res.status(404).render('404');
+});
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {

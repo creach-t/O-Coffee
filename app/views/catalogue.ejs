@@ -1,0 +1,29 @@
+<%- include('./partials/header') %>
+<main class="main">
+    <div class="content">
+      <div class="catalogue__img"><h2 class="catalogue__title">Notre catalogue</h2></div>
+      <form class="catalogue__select" action="get">
+        <select class="button" name="" id="">
+          <option value="" selected>Categories</option>
+          <option value=""></option>
+          <option value=""></option>
+          <option value=""></option>
+        </select>
+      </form>
+      <div class="news__cards">
+        <% coffees.forEach(coffee => { %>
+            <div class="news__card">
+             <h3 class="news__card__title"><%= coffee.nom %></h3>
+             <img class="news__card__img" src="/image/coffees/<%= coffee.reference %>.png" alt="">
+             <p class="news__card__text"><%= coffee.description %></p>
+             <a class="news__card__button button" href="/detail/<%= coffee.reference %>">Découvrir</a>
+           </div>
+           <% }) %>
+      </div>
+      <% if (!all) { %>
+        <a href="/catalogue/all" class="catalogue__button button">Voir tout</a>
+      <% } %>
+      
+    </div>
+  </main>
+  <%- include('./partials/footer') %>

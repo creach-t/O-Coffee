@@ -1,4 +1,4 @@
-<%- include('../partials/header') %>
+<%- include('./partials/header') %>
 <main class="main">
     <div class="content">
         <div class="about">
@@ -9,7 +9,7 @@
             amour profond pour cette délicieuse boisson, ils ont créé un espace où
             le café est célébré comme une expérience raffinée et inspirante.
           </p>
-          <a class="about__button button" href="catalogue.html"
+          <a class="about__button button" href="/catalogue"
             >Voir le catalogue</a
           >
         </div>
@@ -17,26 +17,16 @@
         <div class="news">
           <h2 main="news__title">Nouveautés</h2>
           <div class="news__cards">
-            <div class="news__card">
-              <h3 class="news__card__title">Ethiopian Yirgacheffe</h3>
-              <img class="news__card__img" src="./image/coffees/295432730.png" alt="">
-              <p class="news__card__text">Café fort et concentré préparé en faisant passer de l'eau chaude à travers du café finement moulu.</p>
-              <a class="news__card__button button" href="detail.html">Découvrir</a>
+            <% coffees.forEach(coffee => { %>
+             <div class="news__card">
+              <h3 class="news__card__title"><%= coffee.nom %></h3>
+              <img class="news__card__img" src="/image/coffees/<%= coffee.reference %>.png" alt="">
+              <p class="news__card__text"><%= coffee.description %></p>
+              <a class="news__card__button button" href="detail/<%= coffee.reference %>">Découvrir</a>
             </div>
-            <div class="news__card">
-              <h3 class="news__card__title">Café</h3>
-              <img class="news__card__img" src="./image/coffees/302932754.png" alt="">
-              <p class="news__card__text">c'est le meilleur des cafés</p>
-              <a class="news__card__button button" href="detail.html">Découvrir</a>
-            </div>
-            <div class="news__card">
-              <h3 class="news__card__title">Café</h3>
-              <img class="news__card__img" src="./image/coffees/589100954.png" alt="">
-              <p class="news__card__text">c'est le meilleur des cafés</p>
-              <a class="news__card__button button" href="detail.html">Découvrir</a>
-            </div>
+            <% }) %>
           </div>
         </div>
     </div>
   </main>
-  <%- include('../partials/footer') %>
+  <%- include('./partials/footer') %>
