@@ -2,23 +2,29 @@
 <main class="main">
     <div class="content">
       <div class="catalogue__img"><h2 class="catalogue__title">Notre catalogue</h2></div>
-      <form class="catalogue__select" action="get">
-        <select class="button" name="" id="">
+      <form class="catalogue__select" action="/catalogue/category" method="get">
+        <select class="button" name="category" id="category">
           <option value="" selected>Categories</option>
-          <option value=""></option>
-          <option value=""></option>
-          <option value=""></option>
+          <% categories.forEach(categorie => { %>
+            <option value="<%= categorie.caracteristique_principale %>"><%= categorie.caracteristique_principale %></option>
+          <% }) %>
         </select>
       </form>
-      <div class="news__cards">
-        <% coffees.forEach(coffee => { %>
-            <div class="news__card">
-             <h3 class="news__card__title"><%= coffee.nom %></h3>
-             <img class="news__card__img" src="/image/coffees/<%= coffee.reference %>.png" alt="">
-             <p class="news__card__text"><%= coffee.description %></p>
-             <a class="news__card__button button" href="/detail/<%= coffee.reference %>">Découvrir</a>
-           </div>
-           <% }) %>
+
+      <div class="news">
+        <h2>Nos Cafés <% if (categorySelected !== "") { %>
+        : <%= categorySelected %>
+      <% } %></h2>
+        <div class="news__cards">
+          <% coffees.forEach(coffee => { %>
+              <div class="news__card">
+               <h3 class="news__card__title"><%= coffee.nom %></h3>
+               <img class="news__card__img" src="/image/coffees/<%= coffee.reference %>.png" alt="">
+               <p class="news__card__text"><%= coffee.description %></p>
+               <a class="news__card__button button" href="/detail/<%= coffee.reference %>">Découvrir</a>
+             </div>
+             <% }) %>
+        </div>
       </div>
       <% if (!all) { %>
         <a href="/catalogue/all" class="catalogue__button button">Voir tout</a>

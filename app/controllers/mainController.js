@@ -28,10 +28,14 @@ const mainController = {
   },
 
   cataloguePage: async (req, res) => {
+
     try {
       const coffees = await dataMapper.get3NewsCoffees();
+      const categories = await dataMapper.getCategories();
       res.render('catalogue', {
         coffees,
+        categories,
+        categorySelected: "",
         all: false,
       });
     } catch (error) {
@@ -43,10 +47,39 @@ const mainController = {
   catalogueAllPage: async (req, res) => {
     try {
       const coffees = await dataMapper.getAllCoffees();
+      const categories = await dataMapper.getCategories();
       res.render('catalogue', {
         coffees,
+        categories,
+        categorySelected: "",
         all: true,
       });
+    } catch (error) {
+      console.error(error);
+      res.status(500).send(`An error occured with the database :\n${error.message}`);
+    }
+  },
+
+  catalogueCategoryPage: async (req, res) => {
+    const categorySelected = req.query.category;
+    try {
+      const coffees = await dataMapper.getCoffeeByCategories(categorySelected);
+      const categories = await dataMapper.getCategories();
+      res.render('catalogue', {
+        coffees,
+        categories,
+        categorySelected,
+        all: false,
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).send(`An error occured with the database :\n${error.message}`);
+    }
+  },
+
+  boutiquePage: async (req, res) => {
+    try {
+      res.render('boutique');
     } catch (error) {
       console.error(error);
       res.status(500).send(`An error occured with the database :\n${error.message}`);
