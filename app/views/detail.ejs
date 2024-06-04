@@ -1,16 +1,24 @@
 <%- include('./partials/header') %>
 <main class="main">
     <div class="content">
-      <img src="/image/coffees/<%= coffee.reference %>.png" class="detail-img">
-      <article class="detail__card">
-          <p class="detail__date">Publié le <time datetime="2018-07-07">7 Juillet 2018</time</p>
-          <h2 class="detail__title"><%= coffee.nom %></h2>
-          <p class="detail__text"><%= coffee.description %></p>
-          <p class="detail__origine">Origine : <%= coffee.origine %></p>
-          <p class="detail__caracteristique">Caracteristique : <%= coffee.caracteristique_principale %></p>
-          <p class="detail__price"><%= coffee.prix_kilo %> € / Kg</p>
-          <a href="/catalogue" class="detail__button button">Catalogue</a>
-      </article>
+        <article class="detail__card">
+            <h2 class="detail__title"><%= coffee.nom %></h2>
+            <p class="detail__dispo detail__dispo--<%= coffee.disponible %>">
+            <% if (coffee.disponible === true) { %>
+             Disponible
+            <% } else { %>
+              En rupture
+            <% } %>
+            </p>
+            <p class="detail__date">Publié le <time datetime="<%= coffee.date_ajout %>"><%= coffee.date_ajout_formatted %></time></p>
+            <img src="/image/coffees/<%= coffee.reference %>.png" class="detail__img" alt="Image de <%= coffee.nom %>"/>
+            
+            <p class="detail__text"><%= coffee.description %></p>
+            <p class="detail__origine">Origine : <%= coffee.origine %></p>
+            <p class="detail__caracteristique">Caractéristique : <%= coffee.caracteristique_principale %></p>
+            <p class="detail__price"><%= coffee.prix_kilo %> € / Kg</p>
+            <a href="/catalogue" class="detail__button button" aria-label="Voir le catalogue">Catalogue</a>
+        </article>
     </div>
-  </main>
-  <%- include('./partials/footer') %>
+</main>
+<%- include('./partials/footer') %>

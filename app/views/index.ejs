@@ -2,31 +2,29 @@
 <main class="main">
     <div class="content">
         <div class="about">
-          <h2 main="about__title">Qui sommes nous ?</h2>
-          <p class="about__text">
-            Jean et Jacques Pepper, deux frères passionnés par le café, sont les
-            fondateurs de notre boutique. Avec une expertise approfondie et un
-            amour profond pour cette délicieuse boisson, ils ont créé un espace où
-            le café est célébré comme une expérience raffinée et inspirante.
-          </p>
-          <a class="about__button button" href="/catalogue"
-            >Voir le catalogue</a
-          >
+            <h2 class="about__title">Qui sommes nous ?</h2>
+            <p class="about__text">
+                Jean et Jacques Pepper, deux frères passionnés par le café, sont les
+                fondateurs de notre boutique. Avec une expertise approfondie et un
+                amour profond pour cette délicieuse boisson, ils ont créé un espace où
+                le café est célébré comme une expérience raffinée et inspirante.
+            </p>
+            <a class="about__button button" href="/catalogue" aria-label="Voir le catalogue">Voir le catalogue</a>
         </div>
         <div class="img__accueil"></div>
         <div class="news">
-          <h2 main="news__title">Nouveautés</h2>
-          <div class="news__cards">
-            <% coffees.forEach(coffee => { %>
-             <div class="news__card">
-              <h3 class="news__card__title"><%= coffee.nom %></h3>
-              <img class="news__card__img" src="/image/coffees/<%= coffee.reference %>.png" alt="">
-              <p class="news__card__text"><%= coffee.description %></p>
-              <a class="news__card__button button" href="detail/<%= coffee.reference %>">Découvrir</a>
+            <h2 class="news__title">Nos Cafés Du Moment</h2>
+            <div class="cards">
+                <% coffees.forEach(coffee => { %>
+                    <div class="card">
+                        <h3 class="card__title"><%= coffee.nom %></h3>
+                        <img class="card__img" src="/image/coffees/<%= coffee.reference %>.png" alt="Image de <%= coffee.nom %>">
+                        <p class="card__text"><%= coffee.description %></p>
+                        <a class="card__button button" href="detail/<%= coffee.reference %>" aria-label="Découvrir <%= coffee.nom %>">Découvrir</a>
+                    </div>
+                <% }) %>
             </div>
-            <% }) %>
-          </div>
         </div>
     </div>
-  </main>
-  <%- include('./partials/footer') %>
+</main>
+<%- include('./partials/footer') %>

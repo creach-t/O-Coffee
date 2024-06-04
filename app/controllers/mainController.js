@@ -1,4 +1,6 @@
 const dataMapper = require('../dataMapper.js');
+const dayjs = require('dayjs');
+require('dayjs/locale/fr');
 
 const mainController = {
 
@@ -16,8 +18,10 @@ const mainController = {
 
   detailPage: async (req, res) => {
     const reference = req.params.reference;
+
     try {
       const coffee = await dataMapper.getCoffeeById(reference);
+      coffee.date_ajout_formatted = dayjs(coffee.date_ajout).locale('fr').format('D MMMM YYYY');
       res.render('detail', {
         coffee,
       });
@@ -35,7 +39,7 @@ const mainController = {
       res.render('catalogue', {
         coffees,
         categories,
-        categorySelected: "",
+        categorySelected: "Du Moment",
         all: false,
       });
     } catch (error) {
