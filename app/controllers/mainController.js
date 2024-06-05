@@ -90,6 +90,10 @@ const mainController = {
     }
   },
 
+  accountPage: (req, res) => {
+    res.render('account');
+},
+
 
 };
 

@@ -11,6 +11,9 @@ router.post('/login', authController.loginPageAction);
 router.get('/signup', authController.signUpPage);
 router.post('/signup', authController.signUpPageAction);
 
+router.get('/account', mainController.accountPage);
+router.get('/logout', authController.logoutAction)
+
 router.get('/detail/:reference', mainController.detailPage);
 router.get('/catalogue', mainController.cataloguePage);
 router.get('/catalogue/all', mainController.catalogueAllPage);

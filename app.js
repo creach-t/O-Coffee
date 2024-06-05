@@ -12,18 +12,14 @@ app.use(session({
   secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: true }
+  cookie: { secure: false }
 }));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
+
 app.use((req, res, next) => {
-  // Si je n'ai pas le nombre dans ma session
-  if (!req.session.firstname) {
-    // Je l'initialise à 0
-    req.session.firstname = "";
-  }
-  // Dans tous les cas, je passe la main au middleware suivant
+  res.locals.session = req.session;
   next();
 });
 

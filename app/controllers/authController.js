@@ -13,37 +13,60 @@ const authController = {
         res.render('signup');
     },
 
-    signUpPageAction: async(req,res) => {
+    signUpPageAction: async (req, res) => {
         try {
             const firstname = req.body.firstname;
             const lastname = req.body.lastname;
             const email = req.body.email;
             const password = req.body.password;
-            await dataMapper.signUp(firstname, lastname, email, password); 
+            await dataMapper.signUp(firstname, lastname, email, password);
+            res.redirect('/login');
         } catch (error) {
             console.error(error);
-            res.status(500).send(`Problème avec l'inscription :\n${error.message}`);
+            req.session.message = `Problème avec l'inscription : ${error.message}`;
+            res.redirect('/signup');
         }
-        console.log(req.session);
-        res.redirect('/login');
     },
 
     loginPageAction: async (req, res) => {
         try {
             const email = req.body.email;
             const password = req.body.password;
-            const logged = await dataMapper.login(email, password);
+            const result = await dataMapper.login(email, password);
 
-            if (logged) {
+            if (result.success) {
+                req.session.user = {
+                    firstname: result.user.firstname,
+                    lastname: result.user.lastname,
+                    email: result.user.email
+                };
+                req.session.message = "connecté";
                 res.redirect('/');
             } else {
+                if (result.error === 'email') {
+                    req.session.message = "Email non trouvé";
+                } else if (result.error === 'password') {
+                    req.session.message = "Mot de passe incorrect";
+                }
                 res.redirect('/login');
             }
         } catch (error) {
             console.error(error);
-            res.status(500).send(`Problème avec la connexion :\n${error.message}`);
+            req.session.message = `Problème avec la connexion : ${error.message}`;
+            res.redirect('/login');
         }
     },
+
+    logoutAction: (req, res) => {
+            req.session.destroy((err) => {
+                if (err) {
+                    console.error('Erreur lors de la déconnexion :', err);
+                    res.status(500).send('Erreur lors de la déconnexion');
+                } else {
+                    res.redirect('/');
+                }
+    })
+}
 
 };
 

@@ -1,0 +1,14 @@
+<%- include('./partials/header') %>
+<main class="main">
+    <div class="content">
+        <% if (session.user) { %>
+        <div class="login-container">
+            <p>Prénom : <%= session.user.firstname %></p>
+            <p>Nom : <%= session.user.lastname %></p>
+            <p>Email : <%= session.user.email %></p>
+            <a class="deconnect" href="/logout">Se deconnecter</a>
+        </div>
+        <% } %>
+    </div>
+</main>
+<%- include('./partials/footer') %>

@@ -2,6 +2,10 @@
 <main class="main">
     <div class="content">
         <div class="login-container">
+            <% if (session.message) { %>
+                <p class="error-message"><%= session.message %></p>
+                <% session.message = null; %>
+            <% } %>
             <h2>Création de compte</h2>
             <form action="/signup" method="post">
                 <label for="firstname">Prénom</label>
