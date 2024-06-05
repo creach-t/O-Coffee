@@ -14,7 +14,12 @@ body {
 .header {
     padding-top: 0.5rem;
     position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     width: 100%;
+    max-width: 1500px;
+    margin: 0 auto;
     display: flex;
     justify-content: space-between;
     background-color: #faecde93;
@@ -103,7 +108,7 @@ h2 {
 
 .main {
     min-width: 320px;
-    max-width: 1000px;
+    max-width: 1200px;
     display: block;
     margin: auto;
 }
@@ -139,6 +144,11 @@ h2 {
 .about {
     display: flex;
     flex-direction: column;
+}
+
+.highlight{
+    color:#a17a52;
+    font-weight: 800;
 }
 
 .button {
@@ -282,7 +292,7 @@ h2 {
     font-size: 1rem;
     letter-spacing: 0.1rem;
     font-weight: 1000;
-    color:#eedbc8;
+    border: 1px solid;
     margin: 1rem 0;
     padding: 0.4rem 1rem;
     border-radius: 0.3rem;
@@ -290,12 +300,14 @@ h2 {
 
 
 .detail__dispo--true{
-    background-color: rgb(66, 145, 66);
+    color: rgb(66, 145, 66);
+    border-color: rgb(66, 145, 66);
 }
 
 
 .detail__dispo--false{
-    background-color: rgb(202, 87, 87);
+    color: rgb(202, 87, 87);
+    border-color: rgb(202, 87, 87);
 }
 
 .detail__button {
@@ -319,12 +331,18 @@ h2 {
 /* Catalogue */
 
 .catalogue__img {
-    background-image: url('../image/about.jpg');
+    background-image: url('../image/catalogue.png');
     width: 100%;
     height: 250px;
     background-position: center;
     background-size: cover;
     border-radius: 0.3rem;
+}
+
+.catalogue__filter-button{
+    display: flex;
+    flex-direction: row;
+
 }
 
 .catalogue__title {
@@ -390,6 +408,45 @@ option{
     background-color: #0000007c;
 }
 
+/* Login Page */
+
+.login-container {
+    margin: auto;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.login-container h2 {
+    margin-bottom: 1rem;
+}
+.login-container label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+.login-container input[type="text"],
+.login-container input[type="password"],
+.login-container input[type="email"] {
+    width: 90%;
+    padding: 1rem;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 0.3rem;
+}
+.login-container input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #c0874e;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+.login-container input[type="submit"]:hover {
+    background-color: #c0874e;
+}
+
 @media only screen and (max-width: 500px) {
 
     .main {
@@ -441,11 +498,17 @@ option{
         border-radius: 50%;
     }
 
+    .detail__img{
+        height: 200px;
+    }
+
     .detail__dispo--true{
+        background-color: rgb(66, 145, 66);
         color:rgb(66, 145, 66);
     }
 
     .detail__dispo--false{
+        background-color: rgb(202, 87, 87);
         color:rgb(202, 87, 87);
     }
 

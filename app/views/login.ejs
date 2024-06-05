@@ -1,0 +1,21 @@
+<%- include('./partials/header') %>
+<main class="main">
+    <div class="content">
+        <div class="login-container">
+            <% if (message) { %>
+             <%= message %>
+            <% } %>
+            
+            <h2>Connexion</h2>
+            <form action="/login" method="post">
+                <label for="email">Email</label>
+                <input type="text" id="email" name="email" required>
+                <label for="password">Mot de passe</label>
+                <input type="password" id="password" name="password" required>
+                <input type="submit" value="Se connecter">
+            </form>
+            <a href="/signup">Pas encore inscrit ? Cliquez ici pour creer un nouveau compte !</a>
+        </div>
+    </div>
+</main>
+<%- include('./partials/footer') %>

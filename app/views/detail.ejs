@@ -14,7 +14,11 @@
             <img src="/image/coffees/<%= coffee.reference %>.png" class="detail__img" alt="Image de <%= coffee.nom %>"/>
             
             <p class="detail__text"><%= coffee.description %></p>
-            <p class="detail__origine">Origine : <%= coffee.origine %></p>
+            <p class="detail__origine">Origine : <img
+                src="https://flagcdn.com/w20/<%= coffee.code_pays %>.png"
+                srcset="https://flagcdn.com/w40/<%= coffee.code_pays %>.png 2x"
+                width="30"
+                alt="<%= coffee.origine %>">   <%= coffee.origine %></p>
             <p class="detail__caracteristique">Caractéristique : <%= coffee.caracteristique_principale %></p>
             <p class="detail__price"><%= coffee.prix_kilo %> € / Kg</p>
             <a href="/catalogue" class="detail__button button" aria-label="Voir le catalogue">Catalogue</a>

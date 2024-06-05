@@ -8,9 +8,18 @@
 
 [Recommandations](./docs/recommandations/)
 
-### Technologies utilisées
+## Technologies utilisées
+
+### Rendu
 
 - EXPRESS
 - EJS
 - DOTENV
 - DAYJS
+
+### Authentification
+
+- BODY-PARSER
+- EXPRESS-SESSION
+- BCRYPT
+  
