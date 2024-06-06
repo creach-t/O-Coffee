@@ -13,7 +13,7 @@ const dataMapper = {
     return result.rows;
   },
 
-  async getCoffeeById(reference) {
+  async getCoffeeByReference(reference) {
     const result = await database.query({
       text: "SELECT * FROM cafes WHERE reference = $1",
       values: [reference]
@@ -24,6 +24,14 @@ const dataMapper = {
   async getCoffeeByCategories(category) {
     const result = await database.query({
       text: "SELECT * FROM cafes WHERE caracteristique_principale = $1",
+      values: [category]
+    });
+    return result.rows;
+  },
+
+  async getCoffeeDispoByCategories(category) {
+    const result = await database.query({
+      text: "SELECT * FROM cafes WHERE caracteristique_principale = $1 AND disponible = true",
       values: [category]
     });
     return result.rows;

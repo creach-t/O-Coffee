@@ -20,6 +20,16 @@
         <img class="logo" src="/image/logo.svg" alt="logo de O'Coffee" />
         <h1 class="header__title"><a href="/">O'Coffee</a></h1>
       </div>
+      <div class="header__cart">
+        <% if (session.cart.length !== 0) { %>
+          <span class="cartBubble"><%= session.cart.length %></span>
+        <% } %>
+        <% if (session.user) { %>
+          
+            <a class="cart" href="/cart"><i class="fa fa-shopping-cart" aria-label="Mon panier"></i></a>
+          
+        <% } %>
+      </div>
       <button class="burger" aria-label="Ouvrir le menu de navigation">≡</button>
       <nav class="nav">
         <ul class="nav__list">
@@ -30,7 +40,7 @@
             <a class="nav__list__item__link" href="/catalogue">Catalogue</a>
           </li>
           <li class="nav__list__item">
-            <a class="nav__list__item__link" href="/boutique">Boutique</a>
+            <a class="nav__list__item__link" href="/about">A propos</a>
           </li>
           <li class="nav__list__item">
 
@@ -41,9 +51,6 @@
               <% } %>
             </a>
           </li>
-
         </ul>
       </nav>
     </header>
-  </body>
-</html>

@@ -3,6 +3,10 @@ const dataMapper = require('../dataMapper.js');
 
 const authController = {
 
+    accountPage: (req, res) => {
+        res.render('account');
+      },
+
     loginPage: (req, res) => {
         res.render('login',{
             username: req.session.firstname,

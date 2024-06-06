@@ -17,7 +17,15 @@
                         <h3 class="card__title"><%= coffee.nom %></h3>
                         <img class="card__img" src="/image/coffees/<%= coffee.reference %>.png" alt="Image de <%= coffee.nom %>">
                         <p class="card__text"><%= coffee.description %></p>
-                        <a class="card__button button" href="detail/<%= coffee.reference %>" aria-label="Découvrir <%= coffee.nom %>">Découvrir</a>
+                        <div class="catalogue__link">
+                            <a class="card__button button" href="detail/<%= coffee.reference %>" aria-label="Découvrir <%= coffee.nom %>">Découvrir</a>
+                            <p class="card__price"><%= coffee.prix_kilo %> €/kg</p>
+                            <% if (session.user) { %>
+                                <a class="button" href="/cart/add/<%= coffee.reference %>"><i class="fa fa-cart-plus" aria-hidden="Ajouter au panier"></i></a>
+                            <% } else { %>
+                                <a class="button" href="/login"><i class="fa fa-cart-plus" aria-hidden="Ajouter au panier"></i></a>
+                            <% } %>
+                        </div>
                     </div>
                 <% }) %>
             </div>

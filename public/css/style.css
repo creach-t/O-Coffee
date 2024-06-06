@@ -213,6 +213,12 @@ h2 {
     padding: 0 1rem;
 }
 
+.card__price{
+    text-align: center;
+    font-weight: 800;
+    margin-top: 0.5rem;
+}
+
 .card__button {
     font-size: 1.5rem;
 }
@@ -358,6 +364,24 @@ h2 {
     margin: auto;
 }
 
+.catalogue__link {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.cart__table tr th td{
+    vertical-align: middle;
+    text-align: center;
+}
+
+.img-thumbnail{
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+
 option{
     font-size: 1rem;
     color:#000;
@@ -366,22 +390,22 @@ option{
 
 /* Page Boutique */
 
-.boutique__about{
+.about__about{
     background-image: url('../image/vendors.png');
-    background-position: center;
     height: 20rem;
-    width: 80%;
-    background-size: cover;
+    width: 50%;
+    background-size: contain;
+    background-repeat: no-repeat;
     border-radius: 0.5rem;
     margin: auto;
 }
 
-.boutique__img{
+.about__img{
     background-image: url('../image/boutique.png');
-    background-position: center;
     height: 20rem;
-    width: 80%;
-    background-size: cover;
+    width: 50%;
+    background-size: contain;
+    background-repeat: no-repeat;
     border-radius: 0.5rem;
     margin: auto;
 }
@@ -476,6 +500,59 @@ option{
     margin:0 auto 1rem auto;
 }
 
+.header__cart{
+    position: relative;
+}
+
+.cartBubble{
+    position: absolute;
+    font-size: 0.8rem;
+    top: 10px;
+    right: -10px;
+    text-align: center;
+    background-color: var(--primary-color);
+    color: var(--tertiary-color);
+    font-weight: 1000;
+    padding: 0.1rem 0.2rem;
+    width: 10px;
+    border-radius: 50%;
+    border: 1px solid black;
+
+
+}
+
+
+
+.header__cart a{
+    font-size: 2.5rem;
+    color : var(--primary-color);
+    line-height: 4rem;
+}
+
+table{
+    width: 90vw;
+}
+
+td{
+    border: 1px solid black;
+    min-height: 50px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+@media only screen and (max-width: 700px) {
+    .nav {
+        display: none;
+    }
+
+    .burger {
+        display: block;
+        width: 4rem;
+        height: 4rem;
+        text-align: center;
+    }
+}
+
 @media only screen and (max-width: 500px) {
 
     .main {
@@ -488,16 +565,6 @@ option{
         flex-basis: 100%;
     }
 
-    .nav {
-        display: none;
-    }
-
-    .burger {
-        display: block;
-        width: 4rem;
-        height: 4rem;
-        text-align: center;
-    }
 
     .button {
         align-self: center;
@@ -530,10 +597,6 @@ option{
 
     .detail__img{
         height: 200px;
-    }
-
-    .detail__dispo{
-        
     }
 
     .detail__dispo--true{

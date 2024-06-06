@@ -20,7 +20,7 @@ const mainController = {
     const reference = req.params.reference;
 
     try {
-      const coffee = await dataMapper.getCoffeeById(reference);
+      const coffee = await dataMapper.getCoffeeByReference(reference);
       coffee.date_ajout_formatted = dayjs(coffee.date_ajout).locale('fr').format('D MMMM YYYY');
       res.render('detail', {
         coffee,
@@ -81,19 +81,9 @@ const mainController = {
     }
   },
 
-  boutiquePage: async (req, res) => {
-    try {
-      res.render('boutique');
-    } catch (error) {
-      console.error(error);
-      res.status(500).send(`An error occured with the database :\n${error.message}`);
-    }
+  aboutPage: (req, res) => {
+    res.render('about');
   },
-
-  accountPage: (req, res) => {
-    res.render('account');
-},
-
 
 };
 

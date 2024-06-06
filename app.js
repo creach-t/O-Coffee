@@ -20,6 +20,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use((req, res, next) => {
   res.locals.session = req.session;
+  if (!req.session.cart) {
+    req.session.cart = [];
+  }
   next();
 });
 

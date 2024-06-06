@@ -1,0 +1,49 @@
+<%- include('./partials/header') %>
+<main class="main">
+  <div class="content">
+    <div class="cart">
+      <% if (cart.length === 0) { %>
+      <h3 class="text-center">Vous n'avez aucun articles dans le panier</h3>
+      <% } else { %>
+      <h3 class="text-center">Votre Panier</h3>
+      <table class="cart__table">
+        <thead>
+          <th></th>
+          <th>Article</th>
+          <th>Qté</th>
+          <th>Prix/kg</th>
+          <th></th>
+        </thead>
+        <tbody>
+          <% } %> <% cart.forEach(coffee => { %>
+          <tr>
+            <td>
+              <img
+                class="img-thumbnail"
+                src="/image/coffees/<%= coffee.reference %>.png"
+                />
+            </td>
+            <td>
+              <div class="item-description">
+                <h5 class="item-title"><%= coffee.nom %></h5>
+              </div>
+            </td>
+            <td>
+              <p><%= coffee.quantity %></p>
+            </td>
+            <td>
+              <p class="item-subtotal">$<%= coffee.prix_kilo %></p>
+            </td>
+            <td>
+              <a href="/cart/delete/<%= coffee.reference %>"
+                >✕</a
+              >
+            </td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>
+<%- include('./partials/footer') %>
