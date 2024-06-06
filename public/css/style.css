@@ -389,25 +389,44 @@ option{
 }
 
 /* Page Boutique */
-
-.about__about{
-    background-image: url('../image/vendors.png');
-    height: 20rem;
-    width: 50%;
-    background-size: contain;
-    background-repeat: no-repeat;
-    border-radius: 0.5rem;
-    margin: auto;
+.about, .ambiance, .savoir-faire {
+    margin-bottom: 40px;
 }
 
-.about__img{
-    background-image: url('../image/boutique.png');
-    height: 20rem;
-    width: 50%;
-    background-size: contain;
+.about__title, .ambiance__title, .savoir-faire__title {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.about__image, .ambiance__image {
+    background-color: #ddd;
+    height: 200px;
+    margin-bottom: 20px;
+}
+
+.about__text, .ambiance__text, .savoir-faire__text {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+
+.about__image{
+    background-image: url('../image/vendors.png');
+    background-size: cover;
     background-repeat: no-repeat;
     border-radius: 0.5rem;
-    margin: auto;
+    height: 500px;
+    background-position: center;
+}
+
+.ambiance__image{
+    background-image: url('../image/boutique.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 0.5rem;
+    height: 400px;
+    background-position: center;
 }
 
 /* Page 404 */
