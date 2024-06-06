@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const burgerMenu = document.querySelector('.burger');
     const headerNav = document.querySelector('.nav');
     const navLinks = document.querySelectorAll('.nav__list__item');
+    const categorySelect = document.getElementById("category");
 
     // Vérification de l'existence des éléments
     if (!burgerMenu) {
@@ -27,6 +28,10 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    document.getElementById("category").addEventListener("change", ({ target }) => target.form.submit());
+    if (categorySelect) {
+        categorySelect.addEventListener("change", ({ target }) => target.form.submit());
+    } else {
+        console.error("L'élément avec l'ID 'category' est manquant dans le HTML.");
+    }
 
 });
