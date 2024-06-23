@@ -559,6 +559,80 @@ td{
     vertical-align: middle;
 }
 
+/* CART */
+
+.cart{
+    width: 300px;
+    margin: auto;
+}
+
+.cart__items {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .cart__item {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    padding: 1rem;
+    border-radius: 5px;
+  }
+  
+  .cart__item-image {
+    flex: 0 0 100px;
+  }
+  
+  .cart__item-image img {
+    max-width: 100%;
+    border-radius: 5px;
+  }
+  
+  .cart__item-details {
+    flex: 1;
+    padding-left: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .item-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  .item-price {
+    color: #333;
+  }
+  
+  .item-remove {
+    color: #ff0000;
+    text-decoration: none;
+    align-self: flex-start;
+  }
+
+  .popup-message {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #f44336; /* Red */
+    color: white;
+    padding: 15px;
+    z-index: 1000;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.popup-message .close-popup {
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+
 @media only screen and (max-width: 700px) {
     .nav {
         display: none;

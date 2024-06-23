@@ -24,11 +24,7 @@
         <% if (session.cart.length !== 0) { %>
           <span class="cartBubble"><%= session.cart.length %></span>
         <% } %>
-        <% if (session.user) { %>
-          
             <a class="cart" href="/cart"><i class="fa fa-shopping-cart" aria-label="Mon panier"></i></a>
-          
-        <% } %>
       </div>
       <button class="burger" aria-label="Ouvrir le menu de navigation">≡</button>
       <nav class="nav">

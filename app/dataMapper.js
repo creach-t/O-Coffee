@@ -1,4 +1,5 @@
 const database = require('./database');
+const bcrypt = require('bcrypt');
 
 const dataMapper = {
   async getAllCoffees() {
@@ -70,17 +71,6 @@ const dataMapper = {
       values: [email]
     });
     return result.rows[0];
-  },
-
-  login: async (email, password) => {
-    const user = await dataMapper.getUserByEmail(email);
-    if (!user) {
-      return { success: false, error: 'email' };
-    }
-    if (user.password !== password) {
-      return { success: false, error: 'password' };
-    }
-    return { success: true, user: user };
   },
 
 };

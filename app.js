@@ -5,6 +5,7 @@ let session = require('express-session');
 
 dotenv.config();
 const router = require('./app/router');
+const cartCalculations = require('./app/middlewares/cartCalculation');
 
 const app = express();
 
@@ -32,6 +33,8 @@ app.set('views', 'app/views');
 app.use(express.static('public'));
 
 app.use("/favicon.ico",express.static('./public/images/logo.svg'));
+
+app.use(cartCalculations);
 
 app.use(router);
 

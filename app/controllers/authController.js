@@ -1,5 +1,6 @@
 
 const dataMapper = require('../dataMapper.js');
+const bcrypt = require('bcrypt');
 
 const authController = {
 
@@ -22,7 +23,7 @@ const authController = {
             const firstname = req.body.firstname;
             const lastname = req.body.lastname;
             const email = req.body.email;
-            const password = req.body.password;
+            const password =  await bcrypt.hashSync(req.body.password, 10);
             await dataMapper.signUp(firstname, lastname, email, password);
             res.redirect('/login');
         } catch (error) {
@@ -36,24 +37,26 @@ const authController = {
         try {
             const email = req.body.email;
             const password = req.body.password;
-            const result = await dataMapper.login(email, password);
+            const user = await dataMapper.getUserByEmail(email);
 
-            if (result.success) {
-                req.session.user = {
-                    firstname: result.user.firstname,
-                    lastname: result.user.lastname,
-                    email: result.user.email
-                };
-                req.session.message = "connecté";
-                res.redirect('/');
-            } else {
-                if (result.error === 'email') {
-                    req.session.message = "Email non trouvé";
-                } else if (result.error === 'password') {
-                    req.session.message = "Mot de passe incorrect";
-                }
-                res.redirect('/login');
+            if (!user) {
+                req.session.message = "Email non trouvé";
+                return res.redirect('/login');
             }
+
+            const isPasswordValid = await bcrypt.compare(password, user.password);
+            if (!isPasswordValid) {
+                req.session.message = "Mot de passe incorrect";
+                return res.redirect('/login');
+            }
+
+            req.session.user = {
+                firstname: user.firstname,
+                lastname: user.lastname,
+                email: user.email
+            };
+            req.session.message = "connecté";
+            res.redirect('/');
         } catch (error) {
             console.error(error);
             req.session.message = `Problème avec la connexion : ${error.message}`;

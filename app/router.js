@@ -24,6 +24,7 @@ router.get('/account', authController.accountPage);
 
 //Cart
 router.get('/cart', cartController.cartPage);
+router.get('/cart/update/:reference/:quantity', cartController.update);
 router.get('/cart/add/:reference', cartController.addToCart );
 router.get('/cart/delete/:reference', cartController.deleteFromCart );
 

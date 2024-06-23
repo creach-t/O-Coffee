@@ -23,11 +23,7 @@
             <p class="detail__price"><%= coffee.prix_kilo %> € / Kg</p>
             <div class="catalogue__link">
                 <a href="/catalogue" class="detail__button button" aria-label="Voir le catalogue">Catalogue</a>
-                <% if (session.user) { %>
                     <a class="button" href="/cart/add/<%= coffee.reference %>"><i class="fa fa-cart-plus" aria-hidden="Ajouter au panier"></i></a>
-                <% } else { %>
-                    <a class="button" href="/login"><i class="fa fa-cart-plus" aria-hidden="Ajouter au panier"></i></a>
-                <% } %>
             </div>
         </article>
     </div>

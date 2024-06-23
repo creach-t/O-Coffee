@@ -3,46 +3,38 @@
   <div class="content">
     <div class="cart">
       <% if (cart.length === 0) { %>
-      <h3 class="text-center">Vous n'avez aucun articles dans le panier</h3>
+      <h3 class="text-center">Vous n'avez aucun article dans le panier</h3>
       <% } else { %>
-      <h3 class="text-center">Votre Panier</h3>
-      <table class="cart__table">
-        <thead>
-          <th></th>
-          <th>Article</th>
-          <th>Qté</th>
-          <th>Prix/kg</th>
-          <th></th>
-        </thead>
-        <tbody>
-          <% } %> <% cart.forEach(coffee => { %>
-          <tr>
-            <td>
-              <img
-                class="img-thumbnail"
-                src="/image/coffees/<%= coffee.reference %>.png"
-                />
-            </td>
-            <td>
-              <div class="item-description">
-                <h5 class="item-title"><%= coffee.nom %></h5>
-              </div>
-            </td>
-            <td>
-              <p><%= coffee.quantity %></p>
-            </td>
-            <td>
-              <p class="item-subtotal">$<%= coffee.prix_kilo %></p>
-            </td>
-            <td>
-              <a href="/cart/delete/<%= coffee.reference %>"
-                >✕</a
-              >
-            </td>
-          </tr>
-          <% }) %>
-        </tbody>
-      </table>
+      <h2 class="text-center">Votre Panier</h2>
+      <div class="cart__items">
+        <% cart.forEach(coffee => { %>
+        <div class="cart__item">
+          <div class="cart__item-image">
+            <img class="img-thumbnail" src="/image/coffees/<%= coffee.reference %>.png" />
+          </div>
+          <div class="cart__item-details">
+            <h5 class="item-title"><%= coffee.nom %></h5>
+            <div class="item-quantity">
+              <label for="quantity-<%= coffee.reference %>">Qté:</label>
+              <select id="quantitySelect-<%= coffee.reference %>" class="quantity" name="quantity" data-reference="<%= coffee.reference %>">
+                <option value="2.5" <%= coffee.quantity === 2.5 ? 'selected' : '' %>>250g</option> 
+                <option value="5" <%= coffee.quantity === 5 ? 'selected' : '' %>>500g</option> 
+                <option value="10" <%= coffee.quantity === 10 ? 'selected' : '' %>>1kg</option> 
+                <option value="20" <%= coffee.quantity === 20 ? 'selected' : '' %>>2kg</option>
+                <option value="50" <%= coffee.quantity === 50 ? 'selected' : '' %>>5kg</option>
+                <option value="100" <%= coffee.quantity === 100 ? 'selected' : '' %>>10kg</option>
+              </select>
+            </div>
+            <p class="item-price"><%= ((coffee.prix_kilo / 10) * coffee.quantity).toFixed(2) %> €</p> <!-- Calcul du prix -->
+            <a class="item-remove" href="/cart/delete/<%= coffee.reference %>">✕</a>
+          </div>
+        </div>
+        <% }) %>
+        <div class="cart__total">
+          <h3>Total : <%= total.toFixed(2) %> €</h3>
+        </div>
+      </div>
+      <% } %>
     </div>
   </div>
 </main>

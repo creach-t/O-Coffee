@@ -34,4 +34,28 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error("L'élément avec l'ID 'category' est manquant dans le HTML.");
     }
 
+      // Écoute les changements dans les sélecteurs de quantité
+  document.querySelectorAll('.quantity').forEach(select => {
+    select.addEventListener('change', function() {
+      const coffeeReference = this.dataset.reference;
+      const quantity = this.value;
+      window.location.href = `/cart/update/${coffeeReference}/${quantity}`;
+    });
+  });
+  
+      // Gestion du message pop-up
+      const popupMessage = document.querySelector('.popup-message');
+      const closePopup = document.querySelector('.close-popup');
+  
+      if (popupMessage && closePopup) {
+          closePopup.addEventListener('click', () => {
+              popupMessage.style.display = 'none';
+          });
+  
+          // Optionnel : Masquer automatiquement après quelques secondes
+          setTimeout(() => {
+              popupMessage.style.display = 'none';
+          }, 5000); // 5 secondes
+      }
+
 });
