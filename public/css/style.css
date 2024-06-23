@@ -632,6 +632,22 @@ td{
     margin-left: 10px;
 }
 
+.availability-indicator {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-left: 5px; /* Pour espacer un peu le rond du texte */
+}
+
+.available {
+    background-color: green;
+}
+
+.unavailable {
+    background-color: red;
+}
+
 
 @media only screen and (max-width: 700px) {
     .nav {
