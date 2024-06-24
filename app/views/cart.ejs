@@ -33,6 +33,12 @@
         <div class="cart__total">
           <h3>Total : <%= total.toFixed(2) %> €</h3>
         </div>
+        <a href="/catalogue/all" class="button" >Continuer les achats</a>
+        <% if (session.user) { %>
+          <a href="/checkout" class="button" >Commander</a> 
+        <% } else { %>
+          <a href="/login" class="button" >Commander</a> 
+        <% } %>
       </div>
       <% } %>
     </div>
