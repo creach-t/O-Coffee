@@ -15,7 +15,6 @@
                 <% coffees.forEach(coffee => { %>
                     <div class="card">
                         <span class="detail__dispoR detail__dispoR--<%= coffee.disponible %>"></span>
-                        <p class="detail__dispo detail__dispo--<%= coffee.disponible %>"></p>
                         <h3 class="card__title"><%= coffee.nom %></h3>
                         <img class="card__img" src="/image/coffees/<%= coffee.reference %>.png" alt="Image de <%= coffee.nom %>">
                         <p class="card__text"><%= coffee.description %></p>

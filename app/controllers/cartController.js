@@ -7,7 +7,7 @@ const cartController = {
         });
     },
 
-    async addToCart(req, res, next) {
+     addToCart: async (req, res, next) => {
         const reference = req.params.reference; // Laisser la référence en tant que chaîne de caractères
         try {
             const coffeeFound = await dataMapper.getCoffeeByReference(reference);
@@ -22,6 +22,7 @@ const cartController = {
             if (!coffeeFound.disponible) {
                 // Si le café n'est pas disponible, stocker un message dans la session et rediriger
                 req.session.message = "Malheureusement, ce café n'est plus en stock.";
+                res.redirect('/catalogue/all'); // Rediriger vers une page appropriée, par exemple la page des produits
                 return;
             }
     
@@ -34,9 +35,8 @@ const cartController = {
             } else {
                 // If coffee is not in the cart, add it with quantity 2.5
                 req.session.cart.push({ ...coffeeFound, quantity: 2.5 });
+                res.redirect('/cart');
             }
-    
-            res.redirect('/cart');
         } catch (error) {
             console.error(error);
             res.status(500).send("Erreur lors de la récupération du café");

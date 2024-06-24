@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 
 const dataMapper = {
   async getAllCoffees() {
-    const query = "SELECT * FROM cafes ORDER BY reference DESC";
+    const query = "SELECT * FROM cafes ORDER BY reference ASC";
     const result = await database.query(query);
     return result.rows;
   },

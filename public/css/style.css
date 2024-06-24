@@ -32,6 +32,7 @@ body {
     display: flex;
     line-height: 3rem;
     gap: 0.5rem;
+    flex-grow: 1;
 }
 
 
@@ -183,6 +184,7 @@ h2 {
 }
 
 .card {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -521,6 +523,7 @@ option{
 
 .header__cart{
     position: relative;
+    margin-right: 30px;
 }
 
 .cartBubble{
@@ -614,8 +617,8 @@ td{
 
   .popup-message {
     position: fixed;
-    top: 20px;
-    right: 20px;
+    top: 50%;
+    right: 50%;
     background-color: #f44336; /* Red */
     color: white;
     padding: 15px;
@@ -632,19 +635,19 @@ td{
     margin-left: 10px;
 }
 
-.availability-indicator {
-    display: inline-block;
+.detail__dispoR {
+    position: absolute;
+    display: block;
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    margin-left: 5px; /* Pour espacer un peu le rond du texte */
 }
 
-.available {
+.detail__dispoR--true {
     background-color: green;
 }
 
-.unavailable {
+.detail__dispoR--false {
     background-color: red;
 }
 

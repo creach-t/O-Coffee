@@ -49,4 +49,11 @@
           </li>
         </ul>
       </nav>
+      <% if (session.message) { %>
+        <div class="popup-message">
+            <%= session.message %>
+            <span class="close-popup">&times;</span>
+        </div>
+        <% session.message = null; %> <!-- Réinitialiser le message après l'affichage -->
+        <% } %>
     </header>

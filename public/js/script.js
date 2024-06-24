@@ -30,8 +30,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (categorySelect) {
         categorySelect.addEventListener("change", ({ target }) => target.form.submit());
-    } else {
-        console.error("L'élément avec l'ID 'category' est manquant dans le HTML.");
     }
 
       // Écoute les changements dans les sélecteurs de quantité

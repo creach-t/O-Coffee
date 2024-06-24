@@ -30,13 +30,16 @@
             <div class="cards">
                 <% coffees.forEach(coffee => { %>
                     <div class="card">
+                        <span class="detail__dispoR detail__dispoR--<%= coffee.disponible %>"></span>
                         <h3 class="card__title"><%= coffee.nom %></h3>
                         <img class="card__img" src="/image/coffees/<%= coffee.reference %>.png" alt="Image de <%= coffee.nom %>">
                         <p class="card__text"><%= coffee.description %></p>
                         <div class="catalogue__link">
                             <a class="card__button button" href="/detail/<%= coffee.reference %>" aria-label="Découvrir <%= coffee.nom %>"><i class="fa fa-search" aria-hidden="true"></i></a>
                             <p class="card__price"><%= coffee.prix_kilo %> €/kg</p>
-                            <a class="button" href="/cart/add/<%= coffee.reference %>"><i class="fa fa-cart-plus" aria-hidden="Ajouter au panier"></i></a>
+
+                                <a class="button" href="/cart/add/<%= coffee.reference %>"><i class="fa fa-cart-plus" aria-label="Ajouter au panier"></i></a>
+                            
                         </div>
                     </div>
                 <% }) %>
