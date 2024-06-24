@@ -22,9 +22,9 @@ body {
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
-    background-color: #faecde93;
+    background-color: #faecde69;
     padding-bottom: 0.5rem;
-    backdrop-filter: blur(9px);
+    backdrop-filter: blur(7px);
     z-index: 1000;
 }
 
@@ -617,13 +617,16 @@ td{
 
   .popup-message {
     position: fixed;
-    top: 50%;
-    right: 50%;
-    background-color: #f44336; /* Red */
+    top: 20%;
+    left: 10%;
+    right: 10%;
+    background-color: #f4a236ec; /* Red */
     color: white;
     padding: 15px;
+
     z-index: 1000;
     border-radius: 5px;
+    text-shadow: 1 1 10px rgba(0, 0, 0, 0.1);;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     display: flex;
     align-items: center;

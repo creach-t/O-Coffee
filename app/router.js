@@ -27,6 +27,7 @@ router.get('/cart', cartController.cartPage);
 router.get('/cart/update/:reference/:quantity', cartController.update);
 router.get('/cart/add/:reference', cartController.addToCart );
 router.get('/cart/delete/:reference', cartController.deleteFromCart );
+router.get('/checkout', cartController.checkout );
 
 router.get('/detail/:reference', mainController.detailPage);
 router.get('/catalogue', mainController.cataloguePage);

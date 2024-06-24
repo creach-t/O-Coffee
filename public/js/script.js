@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
           // Optionnel : Masquer automatiquement après quelques secondes
           setTimeout(() => {
               popupMessage.style.display = 'none';
-          }, 5000); // 5 secondes
+          }, 3000); // 5 secondes
       }
 
 });

@@ -65,7 +65,13 @@ const cartController = {
         req.session.cart = req.session.cart.filter(coffee => coffee.reference !== reference);
 
         res.redirect('/cart');
+    },
+
+    checkout(req, res) {
+        res.render('checkout');
     }
+
+
 
 }
 
