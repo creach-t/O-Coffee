@@ -18,6 +18,8 @@ CREATE TABLE cafes (
 -- Insertion des données dans la table
 INSERT INTO cafes (nom, description, reference, origine, code_pays, prix_kilo, caracteristique_principale, disponible, date_ajout) VALUES
 ('Espresso', 'Café fort et concentré préparé en faisant passer de l''eau chaude à travers du café finement moulu.', '100955890', 'Italie', 'it', 20.99, 'Corsé', TRUE, '2024-01-05'),
+-- ETC ...
+
 ('Columbian', 'Café moyennement corsé avec une acidité vive et une saveur riche.', '100955894', 'Colombie', 'co', 18.75, 'Acide', TRUE, '2023-09-30'),
 ('Ethiopian Yirgacheffe', 'Réputé pour son arôme floral, son acidité vive et ses notes de saveur citronnée.', '105589090', 'Éthiopie', 'et', 22.50, 'Fruité', TRUE, '2023-06-15'),
 ('Brazilian Santos', 'Café doux et lisse avec un profil de saveur de noisette.', '134009550', 'Brésil', 'br', 17.80, 'Doux', TRUE, '2019-08-25'),

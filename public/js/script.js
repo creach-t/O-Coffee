@@ -1,59 +1,74 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Sélection des éléments nécessaires
+    // Select necessary elements with existence verification
     const burgerMenu = document.querySelector('.burger');
     const headerNav = document.querySelector('.nav');
     const navLinks = document.querySelectorAll('.nav__list__item');
     const categorySelect = document.getElementById("category");
+    const popupMessage = document.querySelector('.popup-message');
+    const closePopup = document.querySelector('.close-popup');
 
-    // Vérification de l'existence des éléments
-    if (!burgerMenu) {
-        console.error("Un ou plusieurs éléments nécessaires sont manquants dans le HTML.");
-        return;
-    }
-
-    // Gestion du menu burger
-    function toggleBurgerMenu() {
-        const isOpen = headerNav.classList.toggle('open');
-        burgerMenu.textContent = isOpen ? "✕" : "≡";
-    }
-
-    burgerMenu.addEventListener('click', toggleBurgerMenu);
-
-    navLinks.forEach((link, index) => {
-        if (index < navLinks.length - 2) {
-            link.addEventListener('click', () => {
-                headerNav.classList.remove('open');
-                burgerMenu.textContent = "≡";
-            });
+    // Handle burger menu with accessibility features
+    if (burgerMenu && headerNav) {
+        function toggleBurgerMenu() {
+            const isOpen = headerNav.classList.toggle('open');
+            burgerMenu.setAttribute('aria-expanded', isOpen);
+            burgerMenu.textContent = isOpen ? "✕" : "≡";
         }
-    });
 
-    if (categorySelect) {
-        categorySelect.addEventListener("change", ({ target }) => target.form.submit());
+        burgerMenu.addEventListener('click', toggleBurgerMenu);
     }
 
-      // Écoute les changements dans les sélecteurs de quantité
-  document.querySelectorAll('.quantity').forEach(select => {
-    select.addEventListener('change', function() {
-      const coffeeReference = this.dataset.reference;
-      const quantity = this.value;
-      window.location.href = `/cart/update/${coffeeReference}/${quantity}`;
-    });
-  });
-  
-      // Gestion du message pop-up
-      const popupMessage = document.querySelector('.popup-message');
-      const closePopup = document.querySelector('.close-popup');
-  
-      if (popupMessage && closePopup) {
-          closePopup.addEventListener('click', () => {
-              popupMessage.style.display = 'none';
-          });
-  
-          // Optionnel : Masquer automatiquement après quelques secondes
-          setTimeout(() => {
-              popupMessage.style.display = 'none';
-          }, 3000); // 5 secondes
-      }
+    // Handle navigation links with auto-collapse and accessibility
+    if (navLinks.length > 0) {
+        navLinks.forEach((link, index) => {
+            if (index < navLinks.length - 2) { // Exclude certain links from auto-collapse
+                link.addEventListener('click', () => {
+                    if (headerNav) {
+                        headerNav.classList.remove('open');
+                    }
+                    if (burgerMenu) {
+                        burgerMenu.setAttribute('aria-expanded', false);
+                        burgerMenu.textContent = "≡";
+                    }
+                });
+            }
+        });
+    }
 
+    // Handle category change with data validation
+    if (categorySelect) {
+        categorySelect.addEventListener("change", ({ target }) => {
+            // Validate form before submission if needed
+            target.form.submit();
+        });
+    }
+
+    // Listen to changes in quantity selectors
+    const quantitySelectors = document.querySelectorAll('.quantity');
+    if (quantitySelectors.length > 0) {
+        quantitySelectors.forEach(select => {
+            select.addEventListener('change', function () {
+                const coffeeReference = this.dataset.reference;
+                const quantity = this.value;
+                if (quantity.match(/^[0-9]+$/)) { // Validate quantity
+                    window.location.href = `/cart/update/${coffeeReference}/${quantity}`;
+                } else {
+                    console.error("Invalid quantity.");
+                    // Optionally, show a user-friendly message about invalid input
+                }
+            });
+        });
+    }
+
+    // Handle popup message
+    if (popupMessage && closePopup) {
+        closePopup.addEventListener('click', () => {
+            popupMessage.style.display = 'none';
+        });
+
+        // Optional: Automatically hide after a few seconds
+        setTimeout(() => {
+            popupMessage.style.display = 'none';
+        }, 3000); // 3 seconds
+    }
 });

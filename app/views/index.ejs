@@ -1,32 +1,71 @@
 <%- include('./partials/header') %>
 <main class="main">
-    <div class="content">
-        <div class="about">
-            <h2 class="about__title">Bienvenue sur <span class="highlight">O'Coffee</span></h2>
-            <p class="about__text">
-                 Plongez dans un univers où chaque tasse de café <span class="highlight">raconte une histoire</span>. Que vous soyez un <span class="highlight">amateur passionné</span> ou un <span class="highlight">novice curieux</span>, nous vous invitons à découvrir nos sélections exquises, soigneusement préparées pour éveiller vos sens et enrichir votre expérience café. Laissez-vous séduire par notre <span class="highlight">ambiance chaleureuse</span> et notre <span class="highlight">passion partagée</span> pour le café de qualité.
-            </p>
-            <a class="about__button button" href="/catalogue" aria-label="Voir le catalogue">Voir le catalogue</a>
-        </div>
-        <div class="img__accueil"></div>
-        <div class="news">
-            <h2 class="news__title">Nos Cafés Du Moment</h2>
-            <div class="cards">
-                <% coffees.forEach(coffee => { %>
-                    <div class="card">
-                        <span class="detail__dispoR detail__dispoR--<%= coffee.disponible %>"></span>
-                        <h3 class="card__title"><%= coffee.nom %></h3>
-                        <img class="card__img" src="/image/coffees/<%= coffee.reference %>.png" alt="Image de <%= coffee.nom %>">
-                        <p class="card__text"><%= coffee.description %></p>
-                        <div class="catalogue__link">
-                            <a class="card__button button" href="detail/<%= coffee.reference %>" aria-label="Découvrir <%= coffee.nom %>"><i class="fa fa-search" aria-hidden="true"></i></a>
-                            <p class="card__price"><%= coffee.prix_kilo %> €/kg</p>
-                            <a class="button" href="/cart/add/<%= coffee.reference %>"><i class="fa fa-cart-plus" aria-hidden="Ajouter au panier"></i></a>
-                        </div>
-                    </div>
-                <% }) %>
-            </div>
-        </div>
-    </div>
+  <div class="content">
+    <section class="about">
+      <h1 class="about__title">
+        Bienvenue sur <span class="highlight">O'Coffee</span>
+      </h1>
+      <p class="about__text">
+        Plongez dans un univers où chaque tasse de café
+        <span class="highlight">raconte une histoire</span>. Que vous soyez un
+        <span class="highlight">amateur passionné</span> ou un
+        <span class="highlight">novice curieux</span>, nous vous invitons à
+        découvrir nos sélections exquises, soigneusement préparées pour éveiller
+        vos sens et enrichir votre expérience café. Laissez-vous séduire par
+        notre <span class="highlight">ambiance chaleureuse</span> et notre
+        <span class="highlight">passion partagée</span> pour le café de qualité.
+      </p>
+      <a
+        class="about__button button"
+        href="/catalogue"
+        aria-label="Voir le catalogue des cafés"
+        >Voir le catalogue</a
+      >
+    </section>
+    <section class="img__accueil" aria-hidden="true">
+      <!-- Placeholder pour une image d'accueil ou bannière -->
+    </section>
+    <section class="news">
+      <h2 class="news__title">Nos Cafés Du Moment</h2>
+      <div class="cards">
+        <% coffees.forEach(coffee => { %>
+        <article class="card">
+          <span
+            class="detail__dispoR detail__dispoR--<%= coffee.disponible %>"
+            aria-label="<%= coffee.disponible ? 'Disponible' : 'Non disponible' %>"
+          ></span>
+          <h3 class="card__title"><%= coffee.nom %></h3>
+          <img
+            class="card__img"
+            src="/image/coffees/<%= coffee.reference %>.png"
+            alt="Image de <%= coffee.nom %>"
+          />
+          <p class="card__text"><%= coffee.description %></p>
+          <div class="catalogue__link">
+            <a
+              class="card__button button"
+              href="detail/<%= coffee.reference %>"
+              aria-label="Découvrir <%= coffee.nom %>"
+            >
+              <i class="fa fa-search" aria-hidden="true"></i
+              ><span class="sr-only"
+                >Voir les détails de <%= coffee.nom %></span
+              >
+            </a>
+            <p class="card__price"><%= coffee.prix_kilo %> €/kg</p>
+            <a
+              class="button"
+              href="/cart/add/<%= coffee.reference %>"
+              aria-label="Ajouter <%= coffee.nom %> au panier"
+            >
+              <i class="fa fa-cart-plus" aria-hidden="true"></i
+              ><span class="sr-only">Ajouter au panier</span>
+            </a>
+          </div>
+        </article>
+        <% }) %>
+      </div>
+    </section>
+  </div>
 </main>
 <%- include('./partials/footer') %>
