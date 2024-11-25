@@ -1,0 +1,31 @@
+version: "3.9"
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000" # Mappe le port 3000
+    volumes:
+      - .:/app # Monte le dossier local dans le conteneur
+      - /app/node_modules # Exclut les node_modules locaux
+    environment:
+      NODE_ENV: development
+      DATABASE_URL: postgresql://coffee:coffee@db:5432/coffee
+    depends_on:
+      - db # Assure que la base de données démarre avant l'application
+
+  db:
+    image: postgres:15
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: coffee
+      POSTGRES_PASSWORD: coffee
+      POSTGRES_DB: coffee
+    ports:
+      - "5432:5432" # Mappe le port 5432
+    volumes:
+      - postgres-data:/var/lib/postgresql/data # Persist les données
+      - ./data:/docker-entrypoint-initdb.d
+
+volumes:
+  postgres-data:

@@ -1,8 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Découvrez O'Coffee, la boutique de café haut de gamme à Hauts-de-Cloques.Explorez nos produits exceptionnels et nos nouveautés."
+    />
+    <link rel="icon" href="./image/favicon.ico" type="image/x-icon" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -11,14 +16,20 @@
     />
     <link rel="stylesheet" href="css/reset.min.css" />
     <link rel="stylesheet" href="css/style.css" />
-    <title>O'Coffee</title>
+    <title>
+      O'Coffee - Hauts-de-Cloques - Boutique de Café Haut de Gamme - Accueil
+    </title>
   </head>
   <body>
     <header class="header">
-    <div class="logo__text">
-        <img class= "logo" src="./image/logo.svg" alt="logo">
-          <h1 class="header__title"><a href="index.html">O'Coffee</a></h1>
-    </div>
+      <div class="logo__text">
+        <img class="logo" src="./image/logo.svg" alt="logo" />
+        <h1 class="header__title">
+          <a href="index.html"
+            >O'Coffee</a
+          >
+        </h1>
+      </div>
       <div class="burger">≡</div>
       <nav class="nav">
         <ul class="nav__list">
@@ -36,44 +47,45 @@
     </header>
     <main class="main">
       <div class="content">
-          <div class="about">
-            <h2 main="about__title">Qui sommes nous ?</h2>
-            <p class="about__text">
-              Jean et Jacques Pepper, deux frères passionnés par le café, sont les
-              fondateurs de notre boutique. Avec une expertise approfondie et un
-              amour profond pour cette délicieuse boisson, ils ont créé un espace où
-              le café est célébré comme une expérience raffinée et inspirante.
-            </p>
-            <a class="about__button button" href="catalogue.html"
-              >Voir le catalogue</a
-            >
+        <section class="about">
+          <h2 class="about__title">Qui sommes-nous ?</h2>
+          <p class="about__text">
+            Jean et Jacques Pepper, deux frères passionnés par le café, sont les
+            fondateurs de notre boutique. Avec une expertise approfondie et un
+            amour profond pour cette délicieuse boisson, ils ont créé un espace
+            où le café est célébré comme une expérience raffinée et inspirante.
+          </p>
+          <a class="about__button button" href="catalogue.html"
+            >Accéder au catalogue complet</a
+          >
+        </section>
+        <div class="img__accueil"></div>
+        <section class="news">
+          <h2 class="news__title">Nouveautés</h2>
+          <div class="news__cards">
+            <article class="news__card">
+              <h3 class="news__card__title">Ethiopian Yirgacheffe</h3>
+              <img
+                class="news__card__img"
+                src="./image/coffees/295432730.png"
+                alt="Image du café Ethiopian Yirgacheffe"
+              />
+              <p class="news__card__text">
+                Café fort et concentré préparé en faisant passer de l'eau chaude
+                à travers du café finement moulu.
+              </p>
+              <a class="news__card__button button" href="detail.html"
+                >Découvrir</a
+              >
+            </article>
+            <!-- Répéter pour d'autres cartes -->
           </div>
-          <div class="img__accueil"></div>
-          <div class="news">
-            <h2 main="news__title">Nouveautés</h2>
-            <div class="news__cards">
-              <div class="news__card">
-                <h3 class="news__card__title">Ethiopian Yirgacheffe</h3>
-                <img class="news__card__img" src="./image/coffees/295432730.png" alt="">
-                <p class="news__card__text">Café fort et concentré préparé en faisant passer de l'eau chaude à travers du café finement moulu.</p>
-                <a class="news__card__button button" href="detail.html">Découvrir</a>
-              </div>
-              <div class="news__card">
-                <h3 class="news__card__title">Café</h3>
-                <img class="news__card__img" src="./image/coffees/302932754.png" alt="">
-                <p class="news__card__text">c'est le meilleur des cafés</p>
-                <a class="news__card__button button" href="detail.html">Découvrir</a>
-              </div>
-              <div class="news__card">
-                <h3 class="news__card__title">Café</h3>
-                <img class="news__card__img" src="./image/coffees/589100954.png" alt="">
-                <p class="news__card__text">c'est le meilleur des cafés</p>
-                <a class="news__card__button button" href="detail.html">Découvrir</a>
-              </div>
-            </div>
-          </div>
+        </section>
       </div>
     </main>
-    <footer class="footer"><p>&copy; O'Coffee - All right reserved</p></footer>
+    <footer class="footer">
+      <p>&copy; O'Coffee - Tous droits réservés</p>
+    </footer>
+    <script src="js/script.js" defer></script>
   </body>
 </html>

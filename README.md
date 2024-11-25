@@ -39,7 +39,6 @@ Pour faciliter la prise en main du projet, voici les étapes pour installer et c
 
 - Node.js
 - PostgreSQL
-- Docker (optionnel pour la conteneurisation)
 
 ### Étapes d'installation
 
@@ -51,8 +50,6 @@ Pour faciliter la prise en main du projet, voici les étapes pour installer et c
    ```
 
 2. Installez les dépendances Node.js :
-   
-3. 
 
 ```bash
     npm install
@@ -85,8 +82,8 @@ Ajoutez les variables nécessaires comme DB_HOST, DB_USER, DB_PASSWORD, DB_NAME.
 
 Les contributions au projet sont les bienvenues. Veuillez suivre les étapes suivantes pour contribuer :
 
-    Forkez le dépôt.
-    Créez une branche pour votre fonctionnalité (git checkout -b feature/nouvelle-fonctionnalité).
-    Committez vos modifications (git commit -am 'Ajoutez une nouvelle fonctionnalité').
-    Poussez votre branche (git push origin feature/nouvelle-fonctionnalité).
-    Ouvrez une Pull Request.
+Forkez le dépôt.
+Créez une branche pour votre fonctionnalité (git checkout -b feature/nouvelle-fonctionnalité).
+Committez vos modifications (git commit -am 'Ajoutez une nouvelle fonctionnalité').
+Poussez votre branche (git push origin feature/nouvelle-fonctionnalité).
+Ouvrez une Pull Request.
