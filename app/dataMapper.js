@@ -1,5 +1,4 @@
 const database = require("./database");
-const bcrypt = require("bcrypt");
 
 const dataMapper = {
   async getAllCoffees() {
@@ -16,7 +15,18 @@ const dataMapper = {
 
   async getCoffeeByReference(reference) {
     const result = await database.query({
-      text: "SELECT * FROM cafes WHERE reference = $1",
+      text: `
+            SELECT 
+                cafes.*, 
+                pays.nom_pays AS origine, 
+                pays.code_pays, 
+                pays.continent, 
+                pays.langue_officielle, 
+                pays.monnaie 
+            FROM cafes
+            JOIN pays ON cafes.pays_id = pays.id
+            WHERE cafes.reference = $1
+        `,
       values: [reference],
     });
     return result.rows[0];
@@ -54,11 +64,29 @@ const dataMapper = {
 
   // Fonction pour inscrire un nouvel utilisateur
   async signUp(firstname, lastname, email, password) {
+    // Validation des entrées
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      throw new Error("Email invalide");
+    }
+
+    if (!firstname || firstname.length > 50) {
+      throw new Error("Le prénom doit contenir entre 1 et 50 caractères");
+    }
+
+    if (!lastname || lastname.length > 50) {
+      throw new Error("Le nom doit contenir entre 1 et 50 caractères");
+    }
+
+    if (!password || password.length < 8) {
+      throw new Error("Le mot de passe doit contenir au moins 8 caractères");
+    }
+
     // Vérifie si l'email existe déjà
     const emailExists = await dataMapper.checkEmailExists(email);
     if (emailExists) {
       throw new Error("Email déjà utilisé");
     }
+
     // Insérer le nouvel utilisateur dans la base de données
     const query =
       "INSERT INTO users (firstname, lastname, email, password) VALUES ($1, $2, $3, $4)";

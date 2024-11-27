@@ -24,8 +24,7 @@ INSERT INTO cafes (
     nom, 
     description, 
     reference, 
-    origine, 
-    code_pays, 
+    pays_id, 
     prix_kilo, 
     caracteristique_principale, 
     disponible, 
@@ -33,14 +32,16 @@ INSERT INTO cafes (
 ) 
 VALUES 
     ('Espresso', 'Café fort et concentré ...', 
-    '100955890', 'Italie', 'it', 20.99, 'Corsé', 
+    '100955890', 1, 20.99, 'Corsé', 
     TRUE, '2024-01-05'),
+    -- pays_id = 1 correspond au pays Italie
     -- Autres valeurs...
 
     ('Nicaraguan', 
     'Café avec des notes de fruits', 
-    '691550753', 'Nicaragua', 'ni', 
+    '691550753', 16, 
     28.60, 'Fruité', FALSE, '2018-01-15');
+    -- pays_id = 16 correspond au pays Nicaragua
 
 -- Validation de la transaction pour enregistrer les modifications de manière définitive
 -- Si une erreur survient avant cette commande, les modifications seront annulées

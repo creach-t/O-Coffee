@@ -1,31 +1,36 @@
-version: "3.9"
 services:
   app:
-    build: .
+    build: . # Build app image from the Dockerfile
     ports:
-      - "3000:3000" # Mappe le port 3000
+      - "3000:3000"
     volumes:
-      - .:/app # Monte le dossier local dans le conteneur
-      - /app/node_modules # Exclut les node_modules locaux
+      - .:/app
     environment:
-      NODE_ENV: development
-      DATABASE_URL: postgresql://coffee:coffee@db:5432/coffee
+      # Dynamic DB connection string
+      DATABASE_URL: postgres://${PG_USER}:${PG_PASSWORD}@${PG_HOST}:5432/${PG_DB}
     depends_on:
-      - db # Assure que la base de données démarre avant l'application
+      db:
+        condition: service_healthy # Wait for DB to be ready
 
   db:
     image: postgres:15
-    container_name: postgres
+    container_name: pg_${PG_DB} # Set explicit container name
     restart: always
     environment:
-      POSTGRES_USER: coffee
-      POSTGRES_PASSWORD: coffee
-      POSTGRES_DB: coffee
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+      POSTGRES_DB: ${PG_DB}
     ports:
-      - "5432:5432" # Mappe le port 5432
+      - "5432:5432"
     volumes:
-      - postgres-data:/var/lib/postgresql/data # Persist les données
-      - ./data:/docker-entrypoint-initdb.d
+      - postgres-data:/var/lib/postgresql/data # Persist DB data
+      - ./data:/docker-entrypoint-initdb.d # Run database init scripts
+    healthcheck:
+      # Check DB readiness
+      test: ["CMD-SHELL", "pg_isready -U ${PG_USER} -d ${PG_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 volumes:
-  postgres-data:
+  postgres-data: # Persistent DB storage

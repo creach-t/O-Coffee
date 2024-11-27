@@ -20,11 +20,32 @@ const authController = {
 
     signUpPageAction: async (req, res) => {
         try {
-            const firstname = req.body.firstname;
-            const lastname = req.body.lastname;
-            const email = req.body.email;
-            const password =  await bcrypt.hashSync(req.body.password, 10);
-            await dataMapper.signUp(firstname, lastname, email, password);
+            const { firstname, lastname, email, password } = req.body;
+
+            // Validate user entry
+            if (!firstname || firstname.length > 50) {
+                throw new Error('Le prénom doit contenir entre 1 et 50 caractères');
+            }
+
+            if (!lastname || lastname.length > 50) {
+                throw new Error('Le nom doit contenir entre 1 et 50 caractères');
+            }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email || !emailRegex.test(email)) {
+                throw new Error('Email invalide');
+            }
+
+            if (!password || password.length < 8) {
+                throw new Error('Le mot de passe doit contenir au moins 8 caractères');
+            }
+
+            // hashing password
+            const hashedPassword = await bcrypt.hashSync(password, 10);
+
+            await dataMapper.signUp(firstname, lastname, email, hashedPassword);
+
+            req.session.message = 'Inscription réussie ! Veuillez vous connecter.';
             res.redirect('/login');
         } catch (error) {
             console.error(error);

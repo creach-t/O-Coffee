@@ -8,7 +8,7 @@ Pour plus de détails sur les spécifications du projet, veuillez consulter [la 
 
 ## Remarques pédagogiques et rendus
 
-Ce projet a été développé en suivant les meilleures pratiques de développement web, en mettant l'accent sur l'accessibilité, la performance et la sécurité. Des recommandations spécifiques et des rendus peuvent être trouvés dans la section [recommandations](./docs/recommandations/).
+Ce projet a été développé en suivant les meilleures pratiques de développement web, en mettant l'accent sur l'accessibilité, la performance et la sécurité.
 
 ## Technologies utilisées
 
@@ -42,48 +42,48 @@ Pour faciliter la prise en main du projet, voici les étapes pour installer et c
 
 ### Étapes d'installation
 
-1. Clonez le dépôt GitHub :
-
-   ```bash
-   git clone https://github.com/votre-utilisateur/ocoffee.git
-   cd ocoffee
-   ```
-
-2. Installez les dépendances Node.js :
+#### 1. Clonez le dépôt GitHub :
 
 ```bash
-    npm install
+git clone https://github.com/votre-utilisateur/ocoffee.git
+cd ocoffee
 ```
 
-3. Configurez les variables d'environnement :
-
-Créez un fichier .env à la racine du projet.
-Ajoutez les variables nécessaires comme DB_HOST, DB_USER, DB_PASSWORD, DB_NAME.
-
-1. Initialisez la base de données :
-
-    Utilisez les scripts SQL fournis dans le dossier database pour créer et peupler les tables.
-
-2. Démarrez l'application :
+#### 2. Installez les dépendances Node.js :
 
 ```bash
-    npm start
+npm install
 ```
 
-6. Structure du projet
+#### 3. Configurez les variables d'environnement :
 
-    src/ : Contient le code source de l'application.
-        controllers/ : Gère la logique métier.
-        models/ : Contient les fichiers dataMapper.js pour les opérations sur la base de données.
-        views/ : Contient les templates EJS pour le rendu des pages.
-        public/ : Contient les fichiers statiques (CSS, JavaScript, images).
+Créez un fichier `.env` à la racine du projet.
+`.env.example` comme exemple
 
-7. Contribution
+#### 4. Initialisez la base de données :
 
-Les contributions au projet sont les bienvenues. Veuillez suivre les étapes suivantes pour contribuer :
+Mettez à jour la commande setup-db dans le package.json avec vos information de base de données
 
-Forkez le dépôt.
-Créez une branche pour votre fonctionnalité (git checkout -b feature/nouvelle-fonctionnalité).
-Committez vos modifications (git commit -am 'Ajoutez une nouvelle fonctionnalité').
-Poussez votre branche (git push origin feature/nouvelle-fonctionnalité).
-Ouvrez une Pull Request.
+```bash
+npm run setup-db
+```
+
+
+#### 5. Démarrez l'application :
+
+```bash
+npm start 
+```
+
+### Structure du projet
+
+- `src/` : Contient le code source de l'application.
+- `controllers/` : Gère la logique métier.
+- `models/` : Contient les fichiers dataMapper.js pour les opérations sur la base de données.
+- `views/` : Contient les templates EJS pour le rendu des pages.
+- `public/` : Contient les fichiers statiques (CSS, JavaScript, images).
+  
+## Deploiement
+
+- [Deploiement avec PM2](DEPLOYEMENT.md)
+- [Deploiement avec Docker](DEPLOYEMENT_DOCKER.md)
