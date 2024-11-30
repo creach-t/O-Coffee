@@ -3,10 +3,12 @@
   <div class="content">
     <article class="detail__card">
       <h2 class="detail__title"><%= coffee.nom %></h2>
-      <p class="detail__dispo detail__dispo--<%= coffee.disponible %>">
-        <% if (coffee.disponible === true) { %> Disponible <% } else { %> En
-        rupture <% } %>
-      </p>
+      <span
+        class="detail__dispo detail__dispo--<%= coffee.disponible %>"
+        aria-label="<%= coffee.disponible ? 'Disponible' : 'En rupture' %>"
+      >
+        <%= coffee.disponible ? 'Disponible' : 'En rupture' %>
+      </span>
       <p class="detail__date">
         Publié le
         <time datetime="<%= coffee.date_ajout %>"

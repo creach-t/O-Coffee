@@ -20,39 +20,21 @@ git clone https://github.com/monprojet/ocoffee.git
 cd ocoffee
 ```
 
-### 2. Créer un fichier Dockerfile
+### 2. Prérequis
 
-- Ajoutez ce fichier Dockerfile dans le répertoire racine du projet :
+- un fichier `docker-compose.yml` est present dans le depot mais ne correspond pas forcement à tout les environnements.
+- Verifier le fichier docker-compose.yml et l'ajuster selon son environnement.
+- Copier le fichier `.env.example` le renommer `.env` et le mettre à jour le fichier selon son environnement.
 
-```bash
-FROM node:18
-WORKDIR /app
-COPY package.json .
-RUN npm install
-COPY . .
-EXPOSE 3000
-CMD ["node", "start"]
-```
+### 3. Lancer le conteneur
 
-### 3. Construire l'image Docker
-
-- Construisez une image Docker à partir du Dockerfile :
+- Construisez et exécutez l'image Docker en mode detaché `-d` (ne bloque pas la console) :
 
 ```bash
-docker-compose up --build
+docker compose up --build -d
 ```
 
-MODIFIER LA VARIABLE D'ENVIRONNEMENT en remplacant par db:5432 PG_URL=postgres://coffee:coffee@db:5432/coffee
-
-### 4. Lancer le conteneur
-
-- Exécutez l'image Docker en créant un conteneur et en exposant le port 3000 :
-
-```bash
-docker run -d -p 3000:3000 --name ocoffee-container ocoffee
-```
-
-### 5. Superviser le conteneur
+### 4. Superviser le conteneur
 
 - Vérifiez les conteneurs en cours d'exécution :
 
@@ -63,27 +45,27 @@ docker ps
 - Consultez les logs du conteneur :
 
 ```bash
-docker logs ocoffee-container
+docker logs nom_du_container
 ```
 
 ### 6. Redéployer après une mise à jour
 
-- Supprimez le conteneur existant :
+- Supprimez les conteneurs existant :
 
 ```bash
-docker rm -f ocoffee-container
+docker compose down --remove-orphans
 ```
 
-- Reconstruisez l'image Docker :
+- Récupérez les **dernières modifications** :
 
 ```bash
-docker build -t ocoffee .
+git pull
 ```
 
-- Relancez le conteneur :
+- Reconstruisez et executer l'image Docker en mode détaché :
 
 ```bash
-docker run -d -p 3000:3000 --name ocoffee-container ocoffee-app
+docker compose up --build -d
 ```
 
 ## Documentation supplémentaire

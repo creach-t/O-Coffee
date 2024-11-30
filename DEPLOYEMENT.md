@@ -65,7 +65,7 @@ Pour surveiller les **performances** :
 Récupérez les **dernières modifications** :
 
 ```bash
-git pull origin main
+git pull
 ```
 
 **Redémarrez** l'application :

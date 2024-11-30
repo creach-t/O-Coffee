@@ -1,50 +1,69 @@
 <%- include('./partials/header') %>
 <main class="main">
-    <div class="content">
-        <div class="catalogue__img">
-            <h2 class="catalogue__title">Notre catalogue</h2>
-        </div>
-        <div class="catalogue__filter-button">
-          <form class="catalogue__select" action="/catalogue/category" method="get">
-              <label for="category" class="visually-hidden">Sélectionnez une catégorie</label>
-              <select class="button" name="category" id="category">
-                  <option value="" selected>Categories</option>
-                  <% categories.forEach(categorie => { %>
-                      <option value="<%= categorie.caracteristique_principale %>"><%= categorie.caracteristique_principale %></option>
-                  <% }) %>
-              </select>
-          </form>
-          <% if (!all) { %>
-            <a href="/catalogue/all" class="catalogue__button button" aria-label="Voir tout le catalogue">Voir tout</a>
-                <% } %>
-        </div>
-        <div class="news">
-            <h2>Nos Cafés 
-            <% if (categorySelected !== "") { %>
-                <% if (categorySelected === "Doux" || categorySelected === "du moment" ) { %>
-                    <%= categorySelected %>
-                <% } else { %>
-                    <%= categorySelected %>s
-                <% } %>
-            <% } %></h2>
-            <div class="cards">
-                <% coffees.forEach(coffee => { %>
-                    <div class="card">
-                        <span class="detail__dispoR detail__dispoR--<%= coffee.disponible %>"></span>
-                        <h3 class="card__title"><%= coffee.nom %></h3>
-                        <img class="card__img" src="/image/coffees/<%= coffee.reference %>.png" alt="Image de <%= coffee.nom %>">
-                        <p class="card__text"><%= coffee.description %></p>
-                        <div class="catalogue__link">
-                            <a class="card__button button" href="/detail/<%= coffee.reference %>" aria-label="Découvrir <%= coffee.nom %>"><i class="fa fa-search" aria-hidden="true"></i></a>
-                            <p class="card__price"><%= coffee.prix_kilo %> €/kg</p>
-
-                                <a class="button" href="/cart/add/<%= coffee.reference %>"><i class="fa fa-cart-plus" aria-label="Ajouter au panier"></i></a>
-                            
-                        </div>
-                    </div>
-                <% }) %>
-            </div>
-        </div>
+  <div class="content">
+    <div class="catalogue__img">
+      <h2 class="catalogue__title">Notre catalogue</h2>
     </div>
+    <div class="catalogue__filter-button">
+      <form class="catalogue__select" action="/catalogue/category" method="get">
+        <label for="category" class="visually-hidden"
+          >Sélectionnez une catégorie</label
+        >
+        <select class="button" name="category" id="category">
+          <option value="" selected>Categories</option>
+          <% categories.forEach(categorie => { %>
+          <option value="<%= categorie.caracteristique_principale %>">
+            <%= categorie.caracteristique_principale %>
+          </option>
+          <% }) %>
+        </select>
+      </form>
+      <% if (!all) { %>
+      <a
+        href="/catalogue/all"
+        class="catalogue__button button"
+        aria-label="Voir tout le catalogue"
+        >Voir tout</a
+      >
+      <% } %>
+    </div>
+    <div class="news">
+      <h2>
+        Nos Cafés <% if (categorySelected !== "") { %> <% if (categorySelected
+        === "Doux" || categorySelected === "du moment" ) { %> <%=
+        categorySelected %> <% } else { %> <%= categorySelected %>s <% } %> <% }
+        %>
+      </h2>
+      <div class="cards">
+        <% coffees.forEach(coffee => { %>
+        <div class="card">
+          <span
+            class="detail__dispoR detail__dispoR--<%= coffee.disponible %>"
+          ></span>
+          <h3 class="card__title"><%= coffee.nom %></h3>
+          <img
+            class="card__img"
+            src="/image/coffees/<%= coffee.reference %>.png"
+            alt="Image de <%= coffee.nom %>"
+          />
+          <p class="card__text"><%= coffee.description %></p>
+          <div class="catalogue__link">
+            <a
+              class="card__button button"
+              href="/detail/<%= coffee.reference %>"
+              aria-label="Découvrir <%= coffee.nom %>"
+              ><i class="fa fa-search" aria-hidden="true"></i
+            ></a>
+            <p class="card__price"><%= coffee.prix_kilo %> €/kg</p>
+
+            <a class="button" href="/cart/add/<%= coffee.reference %>"
+              ><i class="fa fa-cart-plus" aria-label="Ajouter au panier"></i
+            ></a>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+    </div>
+  </div>
 </main>
 <%- include('./partials/footer') %>

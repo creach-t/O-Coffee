@@ -1,13 +1,11 @@
-jest.mock("./database", () => ({
-  query: jest.fn(),
-}));
-
 const dataMapper = require("./dataMapper");
 const database = require("./database");
 
+jest.mock("./database"); // Mock the database module
+
 describe("dataMapper", () => {
   afterEach(() => {
-    jest.clearAllMocks(); // Réinitialiser les mocks après chaque test
+    jest.clearAllMocks(); // Reset mocks after each test
   });
 
   describe("getAllCoffees", () => {
@@ -27,15 +25,12 @@ describe("dataMapper", () => {
       expect(result).toEqual(mockRows);
     });
 
-    it("should return an empty array if no coffees are found", async () => {
-      database.query.mockResolvedValueOnce({ rows: [] });
+    it("should throw an error if the database query fails", async () => {
+      database.query.mockRejectedValueOnce(new Error("Database error"));
 
-      const result = await dataMapper.getAllCoffees();
-
-      expect(database.query).toHaveBeenCalledWith(
-        "SELECT * FROM cafes ORDER BY reference ASC"
+      await expect(dataMapper.getAllCoffees()).rejects.toThrow(
+        "Unable to retrieve coffees."
       );
-      expect(result).toEqual([]);
     });
   });
 
@@ -52,13 +47,12 @@ describe("dataMapper", () => {
       expect(result).toEqual(mockRows);
     });
 
-    it("should return an empty array if no coffees are found", async () => {
-      database.query.mockResolvedValueOnce({ rows: [] });
-      const result = await dataMapper.get3NewsCoffees();
-      expect(database.query).toHaveBeenCalledWith(
-        "SELECT * FROM cafes ORDER BY date_ajout DESC LIMIT 3"
+    it("should throw an error if the database query fails", async () => {
+      database.query.mockRejectedValueOnce(new Error("Database error"));
+
+      await expect(dataMapper.get3NewsCoffees()).rejects.toThrow(
+        "Unable to retrieve the latest 3 coffees."
       );
-      expect(result).toEqual([]);
     });
   });
 
@@ -66,110 +60,116 @@ describe("dataMapper", () => {
     it("should fetch a coffee by reference", async () => {
       const mockRow = { id: 1, reference: "ABC123" };
       database.query.mockResolvedValueOnce({ rows: [mockRow] });
+
       const result = await dataMapper.getCoffeeByReference("ABC123");
+
       expect(database.query).toHaveBeenCalledWith({
-        text: "SELECT * FROM cafes WHERE reference = $1",
+        text: `
+              SELECT 
+                  cafes.*, 
+                  pays.nom_pays AS origin, 
+                  pays.code_pays, 
+                  pays.continent, 
+                  pays.langue_officielle, 
+                  pays.monnaie 
+              FROM cafes
+              JOIN pays ON cafes.pays_id = pays.id
+              WHERE cafes.reference = $1
+          `,
         values: ["ABC123"],
       });
       expect(result).toEqual(mockRow);
     });
 
-    it("should return undefined if no coffee is found", async () => {
-      database.query.mockResolvedValueOnce({ rows: [] });
-      const result = await dataMapper.getCoffeeByReference("UNKNOWN");
-      expect(database.query).toHaveBeenCalledWith({
-        text: "SELECT * FROM cafes WHERE reference = $1",
-        values: ["UNKNOWN"],
-      });
-      expect(result).toBeUndefined();
+    it("should throw an error if the database query fails", async () => {
+      database.query.mockRejectedValueOnce(new Error("Database error"));
+
+      await expect(dataMapper.getCoffeeByReference("ABC123")).rejects.toThrow(
+        "Unable to retrieve the specified coffee."
+      );
     });
   });
 
-  describe("getCoffeeByCategories", () => {
-    it("should fetch coffees by category", async () => {
-      const mockRows = [{ id: 1, category: "Arabica" }];
-      database.query.mockResolvedValueOnce({ rows: mockRows });
-      const result = await dataMapper.getCoffeeByCategories("Arabica");
-      expect(database.query).toHaveBeenCalledWith({
-        text: "SELECT * FROM cafes WHERE caracteristique_principale = $1",
-        values: ["Arabica"],
-      });
-      expect(result).toEqual(mockRows);
+  describe("checkEmailExists", () => {
+    it("should return true if the email exists", async () => {
+      database.query.mockResolvedValueOnce({ rows: [{ count: "1" }] });
+
+      const result = await dataMapper.checkEmailExists("test@example.com");
+
+      expect(database.query).toHaveBeenCalledWith(
+        "SELECT COUNT(*) FROM users WHERE email = $1",
+        ["test@example.com"]
+      );
+      expect(result).toBe(true);
     });
 
-    it("should return an empty array if no coffees are found", async () => {
-      database.query.mockResolvedValueOnce({ rows: [] });
+    it("should return false if the email does not exist", async () => {
+      database.query.mockResolvedValueOnce({ rows: [{ count: "0" }] });
 
-      const result = await dataMapper.getCoffeeByCategories("UnknownCategory");
+      const result = await dataMapper.checkEmailExists("test@example.com");
 
-      expect(database.query).toHaveBeenCalledWith({
-        text: "SELECT * FROM cafes WHERE caracteristique_principale = $1",
-        values: ["UnknownCategory"],
-      });
-      expect(result).toEqual([]);
+      expect(database.query).toHaveBeenCalledWith(
+        "SELECT COUNT(*) FROM users WHERE email = $1",
+        ["test@example.com"]
+      );
+      expect(result).toBe(false);
+    });
+
+    it("should throw an error if the database query fails", async () => {
+      database.query.mockRejectedValueOnce(new Error("Database error"));
+
+      await expect(
+        dataMapper.checkEmailExists("test@example.com")
+      ).rejects.toThrow("Unable to verify the email.");
     });
   });
 
   describe("signUp", () => {
-    it("should throw an error if email is not in a valid format", async () => {
-      await expect(
-        dataMapper.signUp("John", "Doe", "invalid-email", "password123")
-      ).rejects.toThrow("Email invalide");
-    });
-    it("should throw an error if firstname is too long", async () => {
-      const longFirstname = "a".repeat(51);
-      await expect(
-        dataMapper.signUp(
-          longFirstname,
-          "Doe",
-          "test@example.com",
-          "password123"
-        )
-      ).rejects.toThrow("Le prénom doit contenir entre 1 et 50 caractères");
-    });
-    it("should throw an error if firstname is empty", async () => {
-      await expect(
-        dataMapper.signUp("", "Doe", "test@example.com", "password123")
-      ).rejects.toThrow("Le prénom doit contenir entre 1 et 50 caractères");
-    });
-    it("should throw an error if lastname is too long", async () => {
-      const longLastname = "a".repeat(51);
-      await expect(
-        dataMapper.signUp(
-          "John",
-          longLastname,
-          "test@example.com",
-          "password123"
-        )
-      ).rejects.toThrow("Le nom doit contenir entre 1 et 50 caractères");
-    });
-    it("should throw an error if password is too short", async () => {
-      await expect(
-        dataMapper.signUp("John", "Doe", "test@example.com", "short")
-      ).rejects.toThrow("Le mot de passe doit contenir au moins 8 caractères");
-    });
-    it("should throw an error if email already exists", async () => {
-      jest.spyOn(dataMapper, "checkEmailExists").mockResolvedValueOnce(true);
-
-      await expect(
-        dataMapper.signUp("John", "Doe", "test@example.com", "password123")
-      ).rejects.toThrow("Email déjà utilisé");
-
-      expect(dataMapper.checkEmailExists).toHaveBeenCalledWith(
-        "test@example.com"
-      );
-    });
-    it("should insert a new user if email does not exist", async () => {
-      jest.spyOn(dataMapper, "checkEmailExists").mockResolvedValueOnce(false);
+    it("should insert a new user if no error occurs", async () => {
       database.query.mockResolvedValueOnce({});
-      await dataMapper.signUp("John", "Doe", "test@example.com", "password123");
-      expect(dataMapper.checkEmailExists).toHaveBeenCalledWith(
-        "test@example.com"
+
+      await dataMapper.signUp(
+        "John",
+        "Doe",
+        "test@example.com",
+        "hashedPassword"
       );
+
       expect(database.query).toHaveBeenCalledWith(
         "INSERT INTO users (firstname, lastname, email, password) VALUES ($1, $2, $3, $4)",
-        ["John", "Doe", "test@example.com", "password123"]
+        ["John", "Doe", "test@example.com", "hashedPassword"]
       );
+    });
+
+    it("should throw an error if the database query fails", async () => {
+      database.query.mockRejectedValueOnce(new Error("Database error"));
+
+      await expect(
+        dataMapper.signUp("John", "Doe", "test@example.com", "hashedPassword")
+      ).rejects.toThrow("Unable to create the user account.");
+    });
+  });
+
+  describe("getUserByEmail", () => {
+    it("should fetch a user by email", async () => {
+      const mockRow = { id: 1, email: "test@example.com" };
+      database.query.mockResolvedValueOnce({ rows: [mockRow] });
+
+      const result = await dataMapper.getUserByEmail("test@example.com");
+
+      expect(database.query).toHaveBeenCalledWith({
+        text: "SELECT * FROM users WHERE email = $1",
+        values: ["test@example.com"],
+      });
+      expect(result).toEqual(mockRow);
+    });
+
+    it("should throw an error if the database query fails", async () => {
+      database.query.mockRejectedValueOnce(new Error("Database error"));
+
+      await expect(
+        dataMapper.getUserByEmail("test@example.com")
+      ).rejects.toThrow("Unable to retrieve the user.");
     });
   });
 });

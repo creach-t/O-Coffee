@@ -34,3 +34,16 @@ services:
 
 volumes:
   postgres-data: # Persistent DB storage
+
+# docker-compose.yml (without mount of DB if postgres already installed and running)
+# services:
+#   app:
+#     build: . 
+#     ports:
+#       - "3000:3000"
+#     volumes:
+#       - .:/app
+#     environment:
+#       DATABASE_URL: postgres://${PG_USER}:${PG_PASSWORD}@${PG_HOST}:5432/${PG_D>
+#     network_mode: "host"
+

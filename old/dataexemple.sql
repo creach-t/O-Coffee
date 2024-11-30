@@ -46,3 +46,4 @@ VALUES
 -- Validation de la transaction pour enregistrer les modifications de manière définitive
 -- Si une erreur survient avant cette commande, les modifications seront annulées
 COMMIT;
+

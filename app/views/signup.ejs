@@ -1,24 +1,41 @@
 <%- include('./partials/header') %>
 <main class="main">
-    <div class="content">
-        <div class="login-container">
-            <% if (session.message) { %>
-                <p class="message"><%= session.message %></p>
-                <% session.message = null; %>
-            <% } %>
-            <h2>Création de compte</h2>
-            <form action="/signup" method="post">
-                <label for="firstname">Prénom</label>
-                <input type="text" id="firstname" name="firstname" required>
-                <label for="lastname">Nom de famille</label>
-                <input type="text" id="lastname" name="lastname" required>
-                <label for="email">Adresse e-mail</label>
-                <input type="email" id="email" name="email" required>
-                <label for="password">Mot de passe</label>
-                <input type="password" id="password" name="password" required>
-                <input type="submit" value="Créer un compte">
-            </form>
-        </div>
+  <div class="content">
+    <div class="login-container">
+      <% if (session.message) { %>
+      <p class="message"><%= session.message %></p>
+      <% session.message = null; %> <% } %>
+      <h2>Création de compte</h2>
+      <form action="/signup" method="post">
+        <label for="firstname">Prénom</label>
+        <input
+          type="text"
+          id="firstname"
+          name="firstname"
+          value="<%= session.formData?.firstname || '' %>"
+          required
+        />
+        <label for="lastname">Nom de famille</label>
+        <input
+          type="text"
+          id="lastname"
+          name="lastname"
+          value="<%= session.formData?.lastname || '' %>"
+          required
+        />
+        <label for="email">Adresse e-mail</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          value="<%= session.formData?.email || '' %>"
+          required
+        />
+        <label for="password">Mot de passe</label>
+        <input type="password" id="password" name="password" required />
+        <input type="submit" value="Créer un compte" />
+      </form>
     </div>
+  </div>
 </main>
 <%- include('./partials/footer') %>

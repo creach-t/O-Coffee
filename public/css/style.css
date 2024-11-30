@@ -13,7 +13,31 @@ body {
     background-color: var(--tertiary-color);
 }
 
+.password-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
 
+.password-container .toggle-password {
+    position: absolute;
+    color: #a5a5a5;
+    font-size: 1.5rem;
+    bottom: 2rem;
+    right: 0.75rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.password-container .toggle-password {
+    position: absolute;
+    color: #363636;
+    font-size: 1.5rem;
+    bottom: 2rem;
+    right: 0.75rem;
+    cursor: pointer;
+    user-select: none;
+}
 
 .header {
     padding-top: var(--primary-spacing);
@@ -37,7 +61,7 @@ body {
     border-bottom: 2px solid var(--tertiary-color);
     transition: border-bottom 300ms ease-in-out;
 }
-  
+
 .button:hover {
     background-image: linear-gradient(to bottom, #c0874e, var(--secondary-color));
     transform: scale(1.05);
@@ -45,15 +69,15 @@ body {
 
 @media only screen and (max-width: 700px) {
     .nav {
-      display: none;
+        display: none;
     }
-  
+
     .burger {
-      display: block;
-      font-size: 2rem;
-      cursor: pointer;
+        display: block;
+        font-size: 2rem;
+        cursor: pointer;
     }
-  }
+}
 
 .logo__text {
     display: flex;

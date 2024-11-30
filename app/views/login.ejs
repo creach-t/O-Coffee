@@ -1,21 +1,35 @@
 <%- include('./partials/header') %>
 <main class="main">
-    <div class="content">
-        <div class="login-container">
-            <% if (session.message) { %>
-                <p class="error-message"><%= session.message %></p>
-                <% session.message = null; %>
-            <% } %>
-            <h2>Connexion</h2>
-            <form action="/login" method="post">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
-                <label for="password">Mot de passe</label>
-                <input type="password" id="password" name="password" required>
-                <input type="submit" value="Se connecter">
-            </form>
-            <p>Pas encore inscrit ? <a href="/signup">S'enregistrer</a></p>
+  <div class="content">
+    <div class="login-container">
+      <% if (session.message) { %>
+      <p class="error-message"><%= session.message %></p>
+      <% session.message = null; %> <% } %>
+      <h2>Connexion</h2>
+      <form action="/login" method="post">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          value="<%= session.formData?.email || '' %>"
+          required
+        />
+        <label for="password">Mot de passe</label>
+        <div class="password-container">
+          <input type="password" id="password" name="password" required />
+          <span
+            id="toggle-password"
+            class="toggle-password"
+            aria-label="Afficher ou masquer le mot de passe"
+          >
+            👁️
+          </span>
         </div>
+        <input type="submit" value="Se connecter" />
+      </form>
+      <p>Pas encore inscrit ? <a href="/signup">S'enregistrer</a></p>
     </div>
+  </div>
 </main>
 <%- include('./partials/footer') %>
