@@ -12,12 +12,15 @@ const app = express();
 // Configure session management
 app.use(
   session({
-    secret: process.env.SECRET, 
-    resave: false, 
-    saveUninitialized: true, 
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: true,
     cookie: { secure: false },
   })
 );
+
+// Serve static files (CSS, JS, images) from the "public" folder
+app.use(express.static("public"));
 
 // Middleware to parse request bodies
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -39,9 +42,6 @@ app.use(router);
 // Set EJS as the templating engine
 app.set("view engine", "ejs");
 app.set("views", "app/views"); // Define the views directory
-
-// Serve static files (CSS, JS, images) from the "public" folder
-app.use(express.static("public"));
 
 // Serve favicon from the public folder
 app.use("/favicon.ico", express.static("./public/images/logo.svg"));

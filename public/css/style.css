@@ -187,7 +187,7 @@ h2 {
 .img__accueil {
     height: 20rem;
     width: 50%;
-    background-image: url('../image/cofee.png');
+    background-image: url('../image/cofee.webp');
     background-position: center;
     background-size: cover;
     border-radius: 0.5rem
@@ -390,7 +390,7 @@ h2 {
 /* Catalogue */
 
 .catalogue__img {
-    background-image: url('../image/catalogue.png');
+    background-image: url('../image/catalogue.webp');
     width: 100%;
     height: 250px;
     background-position: center;
@@ -472,7 +472,7 @@ option {
 
 
 .about__image {
-    background-image: url('../image/vendors.png');
+    background-image: url('../image/vendors.webp');
     background-size: cover;
     background-repeat: no-repeat;
     border-radius: var(--border-radius);
@@ -481,7 +481,7 @@ option {
 }
 
 .ambiance__image {
-    background-image: url('../image/boutique.png');
+    background-image: url('../image/boutique.webp');
     background-size: cover;
     background-repeat: no-repeat;
     border-radius: var(--border-radius);
@@ -498,7 +498,7 @@ option {
     color: var(--tertiary-color);
     text-shadow: 2px 2px 20px black;
     text-align: center;
-    background-image: url('../image/404.png');
+    background-image: url('../image/404.webp');
     background-position: center;
     display: flex;
     flex-direction: column;

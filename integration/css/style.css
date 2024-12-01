@@ -146,7 +146,7 @@ h2 {
 .img__accueil {
     height: 20rem;
     width: 50%;
-    background-image: url('../image/coffees/100955890.png');
+    background-image: url('../image/coffees/100955890.webp');
     background-position: center;
     background-size: cover;
     border-radius: 0.5rem
@@ -309,7 +309,7 @@ h2 {
     color: #faecde;
     text-shadow: 2px 2px 20px black;
     text-align: center;
-    background-image: url('../image/404.png');
+    background-image: url('../image/404.webp');
     background-position: center;
     display: flex;
     flex-direction: column;
