@@ -6,20 +6,41 @@ const MAX_ATTEMPTS = 5; // Maximum login attempts
 const LOCK_TIME = 5 * 60 * 1000; // Lockout time in milliseconds (5 minutes)
 
 const authController = {
+  /**
+   * Renders the account page for the logged-in user.
+   * @param {Object} req - The Express request object.
+   * @param {Object} res - The Express response object.
+   */
   accountPage: (req, res) => {
     res.render("account");
   },
 
+  /**
+   * Renders the login page.
+   * @param {Object} req - The Express request object.
+   * @param {Object} res - The Express response object.
+   */
   loginPage: (req, res) => {
     res.render("login", {
       username: req.session?.firstname || null,
     });
   },
 
+  /**
+   * Renders the sign-up page.
+   * @param {Object} req - The Express request object.
+   * @param {Object} res - The Express response object.
+   */
   signUpPage: (req, res) => {
     res.render("signup");
   },
 
+  /**
+   * Handles the user sign-up process.
+   * Validates the input, checks for email uniqueness, hashes the password, and creates a new user.
+   * @param {Object} req - The Express request object containing user input in req.body.
+   * @param {Object} res - The Express response object.
+   */
   signUpPageAction: async (req, res) => {
     try {
       const { firstname, lastname, email, password } = req.body;
@@ -70,6 +91,12 @@ const authController = {
     }
   },
 
+  /**
+   * Handles the login process.
+   * Validates user credentials and manages login attempts with lockout logic for security.
+   * @param {Object} req - The Express request object containing user credentials in req.body.
+   * @param {Object} res - The Express response object.
+   */
   loginPageAction: async (req, res) => {
     try {
       const { email, password } = req.body;
@@ -129,6 +156,11 @@ const authController = {
     }
   },
 
+  /**
+   * Logs out the current user by destroying the session and redirecting to the home page.
+   * @param {Object} req - The Express request object.
+   * @param {Object} res - The Express response object.
+   */
   logoutAction: (req, res) => {
     req.session.destroy((err) => {
       if (err) {

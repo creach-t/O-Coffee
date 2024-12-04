@@ -1,74 +1,75 @@
-# Déploiement de l'application O'Coffee avec Docker
 
-Ce document explique comment conteneuriser et déployer l'application O'Coffee en utilisant Docker.
+# Deploying the O'Coffee Application with Docker
 
-## **Prérequis**
+This document explains how to containerize and deploy the O'Coffee application using Docker.
 
-- Docker installé sur le serveur.
-- Dépôt Git contenant le code source de l'application.
+## **Prerequisites**
+
+- Docker installed on the server.
+- A Git repository containing the application's source code.
 
 ---
 
-## **Étapes de déploiement**
+## **Deployment Steps**
 
-### 1. Cloner le dépôt Git
+### 1. Clone the Git Repository
 
-- Récupérez le code source de l'application :
+- Retrieve the application's source code:
 
 ```bash
-git clone https://github.com/monprojet/ocoffee.git
+git clone https://github.com/yourproject/ocoffee.git
 cd ocoffee
 ```
 
-### 2. Prérequis
+### 2. Prerequisites
 
-- un fichier `docker-compose.yml` est present dans le depot mais ne correspond pas forcement à tout les environnements.
-- Verifier le fichier docker-compose.yml et l'ajuster selon son environnement.
-- Copier le fichier `.env.example` le renommer `.env` et le mettre à jour le fichier selon son environnement.
+- A `docker-compose.yml` file is present in the repository but may not be fully configured for all environments.
+- Review the `docker-compose.yml` file and adjust it according to your environment.
+- Copy the `.env.example` file, rename it to `.env`, and update it according to your environment.
 
-### 3. Lancer le conteneur
+### 3. Launch the Container
 
-- Construisez et exécutez l'image Docker en mode detaché `-d` (ne bloque pas la console) :
+- Build and run the Docker image in detached mode `-d` (does not block the console):
 
 ```bash
 docker compose up --build -d
 ```
 
-### 4. Superviser le conteneur
+### 4. Monitor the Container
 
-- Vérifiez les conteneurs en cours d'exécution :
+- Check the running containers:
 
 ```bash
 docker ps
 ```
 
-- Consultez les logs du conteneur :
+- View the container logs:
 
 ```bash
-docker logs nom_du_container
+docker logs container_name
 ```
 
-### 6. Redéployer après une mise à jour
+### 6. Redeploy After an Update
 
-- Supprimez les conteneurs existant :
+- Stop and remove the existing containers:
 
 ```bash
 docker compose down --remove-orphans
 ```
 
-- Récupérez les **dernières modifications** :
+- Fetch the **latest changes**:
 
 ```bash
 git pull
 ```
 
-- Reconstruisez et executer l'image Docker en mode détaché :
+- Rebuild and run the Docker image in detached mode:
 
 ```bash
 docker compose up --build -d
 ```
 
-## Documentation supplémentaire
+## Additional Documentation
 
-Docker Documentation
-Best Practices for Dockerfiles
+- [Docker Documentation](https://docs.docker.com/)
+- [Best Practices for Dockerfiles](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)

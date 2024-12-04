@@ -1,74 +1,75 @@
-# Déploiement de l'application O'Coffee avec PM2
 
-Ce document décrit les étapes nécessaires pour déployer l'application O'Coffee en utilisant PM2, un gestionnaire de processus pour Node.js.
+# Deploying the O'Coffee Application with PM2
 
-## **Prérequis**
+This document outlines the steps required to deploy the O'Coffee application using PM2, a process manager for Node.js.
 
-- Node.js installé sur le serveur.
-- Dépôt Git contenant le code source de l'application.
-- PM2 installé globalement sur le serveur.
+## **Prerequisites**
+
+- Node.js installed on the server.
+- A Git repository containing the application's source code.
+- PM2 installed globally on the server.
 
 ---
 
-## **Étapes de déploiement**
+## **Deployment Steps**
 
-### 1. Cloner le dépôt Git
+### 1. Clone the Git Repository
 
-Récupérez le code source de l'application depuis le **dépôt Git** :
+Retrieve the application's source code from the **Git repository**:
 
 ```bash
-git clone https://github.com/monprojet/ocoffee.git
+git clone https://github.com/yourproject/ocoffee.git
 cd ocoffee
 ```
 
-### 2. Installer les dépendances
+### 2. Install Dependencies
 
-Installez les dépendances nécessaires via **npm** :
+Install the required dependencies using **npm**:
 
 ```bash
 npm install
 ```
 
-### 3. Lancer l'application avec PM2
+### 3. Start the Application with PM2
 
-Démarrez l'application en utilisant **PM2** :
+Launch the application using **PM2**:
 
 ```bash
 pm2 start app.js --name ocoffee
 ```
 
-### 4. Sauvegarder la configuration de PM2
+### 4. Save the PM2 Configuration
 
-Pour assurer un **redémarrage automatique** après un reboot du serveur :
+To ensure **automatic restart** after a server reboot:
 
 ```bash
 pm2 save
 pm2 startup
 ```
 
-### 5. Superviser l'application
+### 5. Monitor the Application
 
-Pour voir les **logs** :
+To view the **logs**:
 
 ```bash
 pm2 logs ocoffee
 ```
 
-Pour surveiller les **performances** :
+To monitor **performance**:
 
 ```bash
-    pm2 monit
+pm2 monit
 ```
 
-### 6. Redéployer après une mise à jour
+### 6. Redeploy After an Update
 
-Récupérez les **dernières modifications** :
+Fetch the **latest changes**:
 
 ```bash
 git pull
 ```
 
-**Redémarrez** l'application :
+**Restart** the application:
 
 ```bash
 pm2 restart ocoffee

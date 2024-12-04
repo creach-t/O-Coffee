@@ -1,89 +1,89 @@
+
 # O'Coffee
 
-## Information du projet
+## Project Information
 
-O'Coffee est une boutique de café haut de gamme située dans la ville de Hauts-de-Cloques. L'objectif de ce projet est de créer un site web attrayant et informatif qui présente les produits de la boutique de manière engageante. Initialement, le site servira de catalogue informatif, avec une possible évolution vers une plateforme de e-commerce en fonction des retours des utilisateurs.
+O'Coffee is a premium coffee shop located in the city of Hauts-de-Cloques. The objective of this project is to create an attractive and informative website that showcases the shop's products in an engaging manner. Initially, the website will serve as an informational catalog, with the possibility of evolving into an e-commerce platform based on user feedback.
 
-Pour plus de détails sur les spécifications du projet, veuillez consulter [la demande du client](./docs/demande-client/).
+For more details on the project specifications, please refer to the [client's request](./docs/demande-client/).
 
-## Remarques pédagogiques et rendus
+## Pedagogical Notes and Deliverables
 
-Ce projet a été développé en suivant les meilleures pratiques de développement web, en mettant l'accent sur l'accessibilité, la performance et la sécurité.
+This project was developed following the best practices of web development, with a strong focus on accessibility, performance, and security.
 
-## Technologies utilisées
+## Technologies Used
 
-Le développement du projet O'Coffee repose sur une stack technologique moderne, permettant une gestion efficace des données, une sécurité renforcée, et une interface utilisateur dynamique.
+The development of the O'Coffee project is based on a modern technology stack, enabling efficient data management, enhanced security, and a dynamic user interface.
 
-### Rendu
+### Deliverables
 
-- **EXPRESS** : Framework web utilisé pour structurer l'application serveur.
-- **EJS** : Moteur de templates pour générer des pages HTML dynamiques côté serveur.
-- **DOTENV** : Module permettant de charger des variables d'environnement à partir d'un fichier `.env`.
-- **DAYJS** : Bibliothèque JavaScript légère pour le formatage et la manipulation des dates.
+- **EXPRESS**: Web framework used to structure the server application.
+- **EJS**: Template engine to generate dynamic HTML pages on the server side.
+- **DOTENV**: Module for loading environment variables from a `.env` file.
+- **DAYJS**: Lightweight JavaScript library for formatting and manipulating dates.
 
-### Authentification
+### Authentication
 
-- **BODY-PARSER** : Middleware pour analyser le corps des requêtes HTTP.
-- **EXPRESS-SESSION** : Middleware pour gérer les sessions utilisateurs de manière sécurisée.
-- **BCRYPT** : Bibliothèque pour le hachage des mots de passe, assurant une sécurité accrue des données utilisateur.
+- **BODY-PARSER**: Middleware to parse HTTP request bodies.
+- **EXPRESS-SESSION**: Middleware to manage user sessions securely.
+- **BCRYPT**: Library for password hashing, ensuring enhanced user data security.
 
-### Méthode
+### Methodology
 
-- **DATAMAPPER** : Patron de conception utilisé pour interagir avec la base de données de manière structurée et sécurisée. Les fonctions de `dataMapper` gèrent les opérations CRUD pour les entités comme les utilisateurs et les produits (cafés).
+- **DATAMAPPER**: Design pattern used to interact with the database in a structured and secure manner. The `dataMapper` functions manage CRUD operations for entities like users and products (coffee).
 
-## Installation et configuration
+## Installation and Configuration
 
-Pour faciliter la prise en main du projet, voici les étapes pour installer et configurer l'environnement de développement.
+To facilitate project onboarding, here are the steps to install and configure the development environment.
 
-### Prérequis
+### Prerequisites
 
 - Node.js
 - PostgreSQL
 
-### Étapes d'installation
+### Installation Steps
 
-#### 1. Clonez le dépôt GitHub :
+#### 1. Clone the GitHub Repository
 
 ```bash
-git clone https://github.com/votre-utilisateur/ocoffee.git
+git clone https://github.com/your-username/ocoffee.git
 cd ocoffee
 ```
 
-#### 2. Installez les dépendances Node.js :
+#### 2. Install Node.js Dependencies
 
 ```bash
 npm install
 ```
 
-#### 3. Configurez les variables d'environnement :
+#### 3. Configure Environment Variables
 
-Créez un fichier `.env` à la racine du projet.
-`.env.example` comme exemple
+**Create a `.env` file at the root of the project.**
+**Use `.env.example` as a template.**
 
-#### 4. Initialisez la base de données :
+#### 4. Initialize the Database
 
-Mettez à jour la commande setup-db dans le package.json avec vos information de base de données
+**Update the `setup-db` command in `package.json` with your database information.**
 
 ```bash
 npm run setup-db
 ```
 
-
-#### 5. Démarrez l'application :
+#### 5. Start the Application
 
 ```bash
-npm start 
+npm start
 ```
 
-### Structure du projet
+### Project Structure
 
-- `src/` : Contient le code source de l'application.
-- `controllers/` : Gère la logique métier.
-- `models/` : Contient les fichiers dataMapper.js pour les opérations sur la base de données.
-- `views/` : Contient les templates EJS pour le rendu des pages.
-- `public/` : Contient les fichiers statiques (CSS, JavaScript, images).
-  
-## Deploiement
+- `src/`: Contains the application's source code.
+- `controllers/`: Handles business logic.
+- `models/`: Contains `dataMapper.js` files for database operations.
+- `views/`: Contains EJS templates for page rendering.
+- `public/`: Contains static files (CSS, JavaScript, images).
 
-- [Deploiement avec PM2](DEPLOYEMENT.md)
-- [Deploiement avec Docker](DEPLOYEMENT_DOCKER.md)
+## Deployment
+
+- [Deployment with PM2](DEPLOYEMENT.md)
+- [Deployment with Docker](DEPLOYEMENT_DOCKER.md)
