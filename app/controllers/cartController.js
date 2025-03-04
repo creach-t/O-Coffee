@@ -51,7 +51,7 @@ const cartController = {
         const coffeeToUpdate = await dataMapper.getCoffeeByReference(reference);
 
         const existingCoffeeIndex = req.session.cart.findIndex(coffee => coffee.reference === coffeeToUpdate.reference);
-        console.log(req.session.cart[existingCoffeeIndex]);
+        //console.log(req.session.cart[existingCoffeeIndex]);
         if (existingCoffeeIndex !== -1) {
             req.session.cart[existingCoffeeIndex].quantity = quantity;
         }

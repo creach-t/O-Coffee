@@ -1,6 +1,9 @@
 -- Début d'une transaction pour garantir l'exécution atomique
 -- Si une erreur survient, toutes les modifications seront annulées
 BEGIN;
+
+SET client_encoding TO 'UTF8';
+
 -- Suppression des tables existantes si elles existent
 DROP TABLE IF EXISTS cafes;
 DROP TABLE IF EXISTS pays;

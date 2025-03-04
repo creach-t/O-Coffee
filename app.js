@@ -5,7 +5,7 @@ const session = require("express-session");
 
 dotenv.config();
 const router = require("./app/router");
-const cartCalculations = require("./app/middlewares/cartCalculation");
+
 
 const app = express();
 
@@ -46,9 +46,6 @@ app.set("views", "app/views"); // Define the views directory
 // Serve favicon from the public folder
 app.use("/favicon.ico", express.static("./public/images/logo.svg"));
 
-// Middleware for cart calculations (custom logic for cart handling)
-app.use(cartCalculations);
-
 // Attach the main router
 app.use(router);
 
@@ -57,14 +54,14 @@ app.use((req, res) => {
   res.status(404).render("404", { message: "Page not found" }); // Render a 404 view
 });
 
-// Global error handling middleware
-app.use((err, req, res, next) => {
-  console.error("Error stack:", err.stack); // Log the error stack trace
-  res.status(err.status || 500).render("error", { error: err.message }); // Render error page
-});
+// // Global error handling middleware
+// app.use((err, req, res, next) => {
+//   console.error("Error stack:", err.stack); // Log the error stack trace
+//   res.status(err.status || 500).render("error", { error: err.message }); // Render error page
+// });
 
 // Start the server and listen on the configured port
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(`Listening at http://localhost:${PORT}`);
 });

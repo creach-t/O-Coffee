@@ -8,7 +8,7 @@ const client = new Client(dbUrl);
 
 client
   .connect()
-  .then(() => console.log("Connected to the database successfully!"))
+  .then(() => ("Connected to the database successfully!"))
   .catch((err) => console.error("Database connection error:", err.stack));
 
 module.exports = client;

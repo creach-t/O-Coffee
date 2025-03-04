@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
+const cartCalculations = require("./middlewares/cartCalculation");
 const mainController = require('./controllers/mainController');
 const authController = require('./controllers/authController');
 const cartController = require('./controllers/cartController');
@@ -14,6 +15,9 @@ router.get('/logout', authController.logoutAction)
 router.get('/signup', authController.signUpPage);
 router.post('/signup', authController.signUpPageAction);
 router.get('/account', authController.accountPage);
+
+// Middleware for cart calculations (custom logic for cart handling)
+router.use(cartCalculations);
 
 //Cart
 router.get('/cart', cartController.cartPage);
