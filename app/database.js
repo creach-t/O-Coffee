@@ -1,14 +1,17 @@
 const { Client } = require("pg");
 
-// Construct the PostgreSQL connection string dynamically
-const dbUrl = `postgres://${process.env.PG_USER}:${process.env.PG_PASSWORD}@${process.env.PG_HOST}:5432/${process.env.PG_DB}`;
-
-// Initialize the PostgreSQL client with the connection string
-const client = new Client(dbUrl);
+// Utiliser un objet de configuration plutôt qu'une chaîne de connexion
+const client = new Client({
+  user: process.env.PG_USER,
+  password: process.env.PG_PASSWORD,
+  host: process.env.PG_HOST,
+  port: 5432,
+  database: process.env.PG_DB
+});
 
 client
   .connect()
-  .then(() => ("Connected to the database successfully!"))
+  .then(() => console.log("Connected to the database successfully!"))
   .catch((err) => console.error("Database connection error:", err.stack));
 
 module.exports = client;
