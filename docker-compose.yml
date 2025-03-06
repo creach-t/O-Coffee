@@ -1,42 +1,6 @@
-# services:
-#   app:
-#     build: . # Build app image from the Dockerfile
-#     ports:
-#       - "3000:3000"
-#     volumes:
-#       - .:/app
-#     environment:
-#       # Dynamic DB connection string
-#       DATABASE_URL: postgres://${PG_USER}:${PG_PASSWORD}@${PG_HOST}:5432/${PG_DB}
-#     depends_on:
-#       db:
-#         condition: service_healthy # Wait for DB to be ready
+version: '3.8'
 
-#   db:
-#     image: postgres:15
-#     container_name: pg_${PG_DB} # Set explicit container name
-#     restart: always
-#     environment:
-#       POSTGRES_USER: ${PG_USER}
-#       POSTGRES_PASSWORD: ${PG_PASSWORD}
-#       POSTGRES_DB: ${PG_DB}
-#     ports:
-#       - "5432:5432"
-#     volumes:
-#       - postgres-data:/var/lib/postgresql/data # Persist DB data
-#       - ./data:/docker-entrypoint-initdb.d # Run database init scripts
-#     healthcheck:
-#       # Check DB readiness
-#       test: ["CMD-SHELL", "pg_isready -U ${PG_USER} -d ${PG_DB}"]
-#       interval: 10s
-#       timeout: 5s
-#       retries: 5
-
-# volumes:
-#   postgres-data: # Persistent DB storage
-
-# docker-compose.yml (without mount of DB if postgres already installed and running)
-# services:
+services:
   app:
     build: .
     ports:
@@ -44,6 +8,7 @@
     volumes:
       - .:/app
     environment:
-      DATABASE_URL: postgres://${PG_USER}:${PG_PASSWORD}@${PG_HOST}:5432/${PG_D>
+      DATABASE_URL: postgres://${PG_USER}:${PG_PASSWORD}@${PG_HOST}:5432/${PG_DATABASE}
     network_mode: "host"
+    restart: unless-stopped
 
