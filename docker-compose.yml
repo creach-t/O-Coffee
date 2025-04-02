@@ -1,24 +1,19 @@
 version: '3.8'
 
 services:
-  app:
+  ocoffee:
     build: .
-    expose:
-      - ${PORT}
+    ports:
+      - ${PORT}:${PORT}
     volumes:
-      - .:/app
+      - .:/ocoffee
     environment:
       DATABASE_URL: postgres://${PG_USER}:${PG_PASSWORD}@${PG_HOST}:5432/${PG_DATABASE}
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.ocoffee.rule=Host(`ocoffee.creachtheo.fr`)"
-      - "traefik.http.routers.ocoffee.entrypoints=websecure"
-      - "traefik.http.routers.ocoffee.tls.certresolver=myresolver"
-      - "traefik.http.services.ocoffee.loadbalancer.server.port=${PORT}"
+      - "traefik.http.routers.app.rule=Host(`ocoffee.creachtheo.fr`)"
+      - "traefik.http.routers.app.entrypoints=websecure"
+      - "traefik.http.routers.app.tls.certresolver=myresolver"
+      - "traefik.http.services.app.loadbalancer.server.port=${PORT}"
     networks:
-      - traefik-public
-
-networks:
-  traefik-public:
-    external: true
