@@ -8,7 +8,7 @@ services:
     volumes:
       - .:/ocoffee
     environment:
-      DATABASE_URL: postgres://${PG_USER}:${PG_PASSWORD}@${PG_HOST}:5432/${PG_DATABASE}
+      DATABASE_URL: postgres://${PG_USER}:${PG_PASSWORD}@${PG_HOST}:5432/${PG_DB}
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
