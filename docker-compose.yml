@@ -17,3 +17,8 @@ services:
       - "traefik.http.routers.app.tls.certresolver=myresolver"
       - "traefik.http.services.app.loadbalancer.server.port=${PORT}"
     networks:
+      - traefik-public  # Utilisation du réseau géré par Traefik
+
+networks:
+  traefik-public:
+    external: true  # Réseau externe existant géré par Traefik
