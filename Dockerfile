@@ -1,20 +1,18 @@
-# Utilise une image officielle de Node.js comme base
+# Image de production O'Coffee (serveur Express)
 FROM node:18
 
-# Définit le répertoire de travail dans le conteneur
 WORKDIR /app
 
-# Copie les fichiers package.json et package-lock.json dans le conteneur
+ENV NODE_ENV=production
+
+# Installe uniquement les dependances de production (lockfile fige les versions)
 COPY package*.json ./
+RUN npm ci --omit=dev
 
-# Installe les dépendances
-RUN npm install
-
-# Copie tous les fichiers du projet dans le conteneur
+# Copie le code applicatif (voir .dockerignore pour les exclusions)
 COPY . .
 
-# Expose le port utilisé par l'application
-EXPOSE ${PORT}
+# Port applicatif (surchargé par la variable PORT au runtime)
+EXPOSE 2584
 
-# Définis la commande par défaut pour démarrer l'application
 CMD ["npm", "start"]
