@@ -1,0 +1,19 @@
+services:
+  ocoffee:
+    image: ${GHCR_IMAGE}:${IMAGE_TAG:-latest}
+    restart: unless-stopped
+    # Variables runtime (PORT, SECRET, PG_USER, PG_PASSWORD, PG_DB, PG_HOST)
+    # lues depuis le fichier .env present sur le VPS dans ce dossier.
+    env_file: .env
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.ocoffee.rule=Host(`ocoffee.creachtheo.fr`)"
+      - "traefik.http.routers.ocoffee.entrypoints=websecure"
+      - "traefik.http.routers.ocoffee.tls.certresolver=myresolver"
+      - "traefik.http.services.ocoffee.loadbalancer.server.port=${PORT}"
+    networks:
+      - traefik-public
+
+networks:
+  traefik-public:
+    external: true

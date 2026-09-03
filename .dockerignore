@@ -1,0 +1,16 @@
+node_modules
+npm-debug.log
+.git
+.gitignore
+.env
+.env.example
+.codebase-memory
+docs
+integration
+old
+*.md
+shema.excalidraw
+Dockerfile
+docker-compose*.yml
+.github
+.vscode
