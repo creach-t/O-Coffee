@@ -1,0 +1,157 @@
+name: 🚀 CI/CD Pipeline
+
+on:
+  push:
+    branches: [master]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  # ──────────────────────────────
+  # Job 1 : Build + Tests
+  # ──────────────────────────────
+  build-check:
+    name: 🔨 Build & Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+
+      - name: 📦 Install dependencies
+        run: npm ci
+
+      - name: 🔍 Audit dependencies
+        run: npm audit --audit-level=high
+        continue-on-error: true
+
+      - name: 🧪 Run tests
+        run: npm test
+
+  # ──────────────────────────────
+  # Job 2 : Build image Docker + Push GHCR
+  # ──────────────────────────────
+  build-image:
+    name: 🐳 Build & Push Docker Image
+    runs-on: ubuntu-latest
+    needs: build-check
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 🔧 Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: 🔑 Login to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🏷️ Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=raw,value=latest
+            type=sha,prefix=sha-
+
+      - name: 🐳 Build & Push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          build-args: |
+            GIT_SHA=${{ github.sha }}
+
+  # ──────────────────────────────
+  # Job 3 : Deploy sur VPS via tunnel Cloudflare (Access + service token)
+  # ──────────────────────────────
+  deploy:
+    name: 🌐 Deploy to VPS (Cloudflare Tunnel)
+    runs-on: ubuntu-latest
+    needs: build-image
+    environment:
+      name: production
+      url: https://ocoffee.creachtheo.fr
+    # Le service token Cloudflare est lu par `cloudflared access ssh`
+    # (invoqué en ProxyCommand) pour franchir Cloudflare Access.
+    env:
+      TUNNEL_SERVICE_TOKEN_ID: ${{ secrets.CF_ACCESS_CLIENT_ID }}
+      TUNNEL_SERVICE_TOKEN_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 🏷️ Set image tag
+        id: set-tag
+        run: echo "IMAGE_TAG=sha-$(echo ${{ github.sha }} | cut -c1-7)" >> "$GITHUB_OUTPUT"
+
+      - name: ☁️ Install cloudflared
+        run: |
+          curl -fsSL https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb -o /tmp/cloudflared.deb
+          sudo dpkg -i /tmp/cloudflared.deb
+          cloudflared --version
+
+      - name: 🔐 Setup SSH key + tunnel config
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          # Heredoc NON quoté : les ${{ secrets.* }} sont résolus par le runner GHA.
+          # %h est littéral : ssh le remplace par le HostName au moment de la connexion.
+          cat >> ~/.ssh/config <<EOF
+          Host ocoffee-vps
+            HostName ${{ secrets.SSH_HOSTNAME }}
+            User ${{ secrets.SSH_USER }}
+            IdentityFile ~/.ssh/deploy_key
+            IdentitiesOnly yes
+            ProxyCommand cloudflared access ssh --hostname %h
+            StrictHostKeyChecking accept-new
+          EOF
+          chmod 600 ~/.ssh/config
+
+      - name: 📤 Copy docker-compose.prod.yml to VPS
+        run: |
+          ssh ocoffee-vps "mkdir -p /root/projects/O-Coffee"
+          scp docker-compose.prod.yml ocoffee-vps:/root/projects/O-Coffee/docker-compose.prod.yml
+
+      - name: 🚀 Deploy via SSH over Cloudflare tunnel
+        env:
+          IMAGE_TAG: ${{ steps.set-tag.outputs.IMAGE_TAG }}
+        run: |
+          # Secrets/valeurs passés en préfixe de commande → ils s'expansent sur le VPS.
+          # Heredoc QUOTÉ (<<'REMOTE') : aucune expansion locale, rien ne fuit dans les logs.
+          ssh ocoffee-vps \
+            IMAGE_TAG="$IMAGE_TAG" \
+            GHCR_ACTOR="${{ github.actor }}" \
+            GHCR_PAT="${{ secrets.GHCR_PAT }}" \
+            GHCR_REPO="${{ github.repository }}" \
+            DEPLOY_PATH="/root/projects/O-Coffee" \
+            bash -s <<'REMOTE'
+          set -euo pipefail
+          cd "$DEPLOY_PATH"
+          echo "$GHCR_PAT" | docker login ghcr.io -u "$GHCR_ACTOR" --password-stdin
+          # GHCR exige un nom d'image en minuscules (le repo est O-Coffee)
+          export GHCR_IMAGE=$(echo "ghcr.io/$GHCR_REPO" | tr '[:upper:]' '[:lower:]')
+          export IMAGE_TAG
+          echo "📦 Deploying image: $GHCR_IMAGE:$IMAGE_TAG"
+          docker compose -p o-coffee -f docker-compose.prod.yml pull
+          docker compose -p o-coffee -f docker-compose.prod.yml up -d --force-recreate --remove-orphans
+          docker image prune -f
+          echo "✅ Deployed! https://ocoffee.creachtheo.fr"
+          docker compose -p o-coffee -f docker-compose.prod.yml ps
+          REMOTE
