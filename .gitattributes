@@ -1,0 +1,4 @@
+# CI/CD scripts run on a Linux runner and contain bash heredocs:
+# force LF so a Windows checkout/commit can't inject CRLF and break them.
+.github/workflows/*.yml text eol=lf
+docker-compose*.yml     text eol=lf
