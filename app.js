@@ -9,13 +9,17 @@ const router = require("./app/router");
 
 const app = express();
 
+// Set EJS as the templating engine
+app.set("view engine", "ejs");
+app.set("views", "app/views"); // Define the views directory
+
 // Configure session management
 app.use(
   session({
     secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false },
+    cookie: { secure: process.env.NODE_ENV === "production" },
   })
 );
 
@@ -37,14 +41,8 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(router);
-
-// Set EJS as the templating engine
-app.set("view engine", "ejs");
-app.set("views", "app/views"); // Define the views directory
-
 // Serve favicon from the public folder
-app.use("/favicon.ico", express.static("./public/images/logo.svg"));
+app.use("/favicon.ico", express.static("./public/image/logo.svg"));
 
 // Attach the main router
 app.use(router);

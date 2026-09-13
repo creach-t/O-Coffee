@@ -89,30 +89,6 @@ const dataMapper = {
   },
 
   /**
-   * Retrieves all available coffees that belong to a specific category.
-   * @param {string} category - The category of coffees to retrieve.
-   * @returns {Promise<Array>} A promise that resolves to an array of available coffee objects.
-   * @throws {Error} If the query fails.
-   */
-  async getCoffeeDispoByCategories(category) {
-    try {
-      const result = await database.query({
-        text: "SELECT * FROM cafes WHERE caracteristique_principale = $1 AND disponible = true",
-        values: [category],
-      });
-      return result.rows;
-    } catch (error) {
-      console.error(
-        `Error while retrieving available coffees for category ${category}:`,
-        error
-      );
-      throw new Error(
-        "Unable to retrieve available coffees for the specified category."
-      );
-    }
-  },
-
-  /**
    * Retrieves all unique coffee categories.
    * @returns {Promise<Array>} A promise that resolves to an array of categories.
    * @throws {Error} If the query fails.

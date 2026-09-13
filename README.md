@@ -63,25 +63,40 @@ npm install
 
 #### 4. Initialize the Database
 
-**Update the `setup-db` command in `package.json` with your database information.**
+Load the schema and dataset into your PostgreSQL database:
 
 ```bash
-npm run setup-db
+psql -U <PG_USER> -d <PG_DB> -f data/data.sql
 ```
 
 #### 5. Start the Application
 
 ```bash
-npm start
+npm start      # production
+npm run dev    # development (node --watch)
+npm test       # run the Jest test suite
 ```
 
 ### Project Structure
 
-- `src/`: Contains the application's source code.
-- `controllers/`: Handles business logic.
-- `models/`: Contains `dataMapper.js` files for database operations.
-- `views/`: Contains EJS templates for page rendering.
-- `public/`: Contains static files (CSS, JavaScript, images).
+The application follows a lightweight **MVC** pattern:
+
+- `app.js`: Application entry point (Express server, session, static files).
+- `app/router.js`: Maps URLs to controller handlers.
+- `app/controllers/`: Request handling and business logic
+  (`mainController`, `authController`, `cartController`).
+- `app/dataMapper.js`: **DataMapper** — centralized SQL access layer (CRUD on
+  `cafes`, `pays`, `users`).
+- `app/database.js`: PostgreSQL connection (`pg`).
+- `app/middlewares/`: Custom middleware (`cartCalculation`).
+- `app/views/`: EJS templates for page rendering.
+- `public/`: Static files (CSS, JavaScript, images).
+- `data/data.sql`: Database schema and seed dataset.
+
+## Architecture & Documentation
+
+- [Architecture map (graph + Mermaid diagrams)](docs/ARCHITECTURE.md)
+- [Audit report](docs/AUDIT.md)
 
 ## Deployment
 

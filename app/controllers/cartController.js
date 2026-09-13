@@ -43,16 +43,13 @@ const cartController = {
         }
     },
 
-    async update(req, res) {
-        const quantity = parseInt(req.params.quantity);
+    update(req, res) {
+        const quantity = parseInt(req.params.quantity, 10);
+        // La référence est une chaîne (VARCHAR), cohérente avec addToCart/deleteFromCart.
+        const reference = req.params.reference;
 
-        const reference = parseInt(req.params.reference);
-
-        const coffeeToUpdate = await dataMapper.getCoffeeByReference(reference);
-
-        const existingCoffeeIndex = req.session.cart.findIndex(coffee => coffee.reference === coffeeToUpdate.reference);
-        //console.log(req.session.cart[existingCoffeeIndex]);
-        if (existingCoffeeIndex !== -1) {
+        const existingCoffeeIndex = req.session.cart.findIndex(coffee => coffee.reference === reference);
+        if (existingCoffeeIndex !== -1 && !Number.isNaN(quantity)) {
             req.session.cart[existingCoffeeIndex].quantity = quantity;
         }
         res.redirect('/cart');
