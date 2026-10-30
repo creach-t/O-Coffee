@@ -32,6 +32,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Middleware for session setup and form management
 app.use((req, res, next) => {
   res.locals.session = req.session;
+  // Expose canonical/site URLs to all views for SEO meta tags
+  const host = req.get("host");
+  res.locals.siteUrl = `https://${host}`;
+  res.locals.canonical = `https://${host}${req.originalUrl.split("?")[0]}`;
   if (!req.session.cart) {
     req.session.cart = [];
   }

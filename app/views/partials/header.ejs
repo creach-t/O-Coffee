@@ -1,8 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <%
+      // SEO meta — each page may pass `title`, `description`, `ogImage`;
+      // sensible defaults keep every page descriptive otherwise.
+      const pageTitle = (typeof title !== "undefined" && title)
+        ? title
+        : "O'Coffee — Boutique de cafés de spécialité en ligne";
+      const pageDescription = (typeof description !== "undefined" && description)
+        ? description
+        : "O'Coffee, boutique de cafés de spécialité : une sélection de cafés du monde, torréfactions et saveurs d'exception. Projet de démonstration d'un site e-commerce codé à la main par Théo Créac'h (Node.js, Express, EJS).";
+      const baseUrl = (typeof siteUrl !== "undefined" && siteUrl) ? siteUrl : "";
+      const pageUrl = (typeof canonical !== "undefined" && canonical) ? canonical : baseUrl + "/";
+      const pageImage = baseUrl + ((typeof ogImage !== "undefined" && ogImage) ? ogImage : "/image/cofee.webp");
+    %>
+    <title><%= pageTitle %></title>
+    <meta name="description" content="<%= pageDescription %>" />
+    <meta name="author" content="Théo Créac'h" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#4b392d" />
+    <link rel="canonical" href="<%= pageUrl %>" />
+
+    <!-- Open Graph / réseaux sociaux -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="O'Coffee" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content="<%= pageTitle %>" />
+    <meta property="og:description" content="<%= pageDescription %>" />
+    <meta property="og:url" content="<%= pageUrl %>" />
+    <meta property="og:image" content="<%= pageImage %>" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="<%= pageTitle %>" />
+    <meta name="twitter:description" content="<%= pageDescription %>" />
+    <meta name="twitter:image" content="<%= pageImage %>" />
+
     <link rel="icon" type="image/svg+xml" href="/image/logo.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -13,13 +48,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css" integrity="sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/reset.min.css" />
     <link rel="stylesheet" href="/css/style.css" />
-    <title>O'Coffee</title>
   </head>
   <body>
     <header class="header">
       <div class="logo__text">
         <img class="logo" src="/image/logo.svg" alt="logo de O'Coffee" />
-        <h1 class="header__title"><a href="/">O'Coffee</a></h1>
+        <p class="header__title"><a href="/" aria-label="O'Coffee — accueil">O'Coffee</a></p>
       </div>
       <div class="header__cart">
         <% if (session.cart.length !== 0) { %>

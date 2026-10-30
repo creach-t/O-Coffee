@@ -281,13 +281,20 @@ h2 {
     color: var(--tertiary-color);
     text-align: center;
     margin-bottom: 0;
-    height: 3rem;
     width: 100%;
+    padding: 1rem;
 }
 
 .footer p {
     margin-bottom: 0;
-    line-height: 3rem;
+    line-height: 1.5;
+}
+
+.footer__purpose {
+    max-width: 60ch;
+    margin: 0 auto 0.5rem;
+    font-size: 0.8rem;
+    opacity: 0.85;
 }
 
 /*Page detail*/

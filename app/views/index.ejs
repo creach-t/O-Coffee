@@ -3,16 +3,18 @@
   <div class="content">
     <section class="about">
       <h1 class="about__title">
-        Bienvenue sur <span class="highlight">O'Coffee</span>
+        Bienvenue sur <span class="highlight">O'Coffee</span>, votre boutique de
+        <span class="highlight">cafés de spécialité</span>
       </h1>
       <p class="about__text">
         Plongez dans un univers où chaque tasse de café
         <span class="highlight">raconte une histoire</span>. Que vous soyez un
         <span class="highlight">amateur passionné</span> ou un
         <span class="highlight">novice curieux</span>, nous vous invitons à
-        découvrir nos sélections exquises, soigneusement préparées pour éveiller
-        vos sens et enrichir votre expérience café. Laissez-vous séduire par
-        notre <span class="highlight">ambiance chaleureuse</span> et notre
+        découvrir notre <span class="highlight">sélection de cafés du monde</span>,
+        soigneusement torréfiés pour éveiller vos sens et enrichir votre
+        expérience café. Laissez-vous séduire par notre
+        <span class="highlight">ambiance chaleureuse</span> et notre
         <span class="highlight">passion partagée</span> pour le café de qualité.
       </p>
       <a
@@ -44,7 +46,7 @@
           <div class="catalogue__link">
             <a
               class="card__button button"
-              href="detail/<%= coffee.reference %>"
+              href="/detail/<%= coffee.reference %>"
               aria-label="Découvrir <%= coffee.nom %>"
             >
               <i class="fa fa-search" aria-hidden="true"></i
@@ -68,4 +70,18 @@
     </section>
   </div>
 </main>
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "O'Coffee",
+    "url": "<%= typeof siteUrl !== 'undefined' ? siteUrl : '' %>/",
+    "description": "Boutique de cafés de spécialité (projet de démonstration e-commerce codé à la main en Node.js, Express et EJS).",
+    "inLanguage": "fr-FR",
+    "author": {
+      "@type": "Person",
+      "name": "Théo Créac'h"
+    }
+  }
+</script>
 <%- include('./partials/footer') %>
